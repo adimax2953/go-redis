@@ -1,7 +1,7 @@
 package src
 
-import "github.com/adimax2953/goscriptor"
+import "github.com/adimax2953/go-redis/goredis"
 
 type MyScriptor struct {
-	Scriptor *goscriptor.Scriptor
+	Scriptor *goredis.Scriptor
 }

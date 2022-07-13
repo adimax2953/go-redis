@@ -1,9 +1,10 @@
 package goredis_test
 
 import (
+	"goredis"
 	"testing"
 
-	. "go-redis/goredis/src"
+	. "goredis/src"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -30,7 +31,7 @@ var (
 	}
 )
 
-func goscriptor_NewDB(host string, port int, scr map[string]string) (*goscriptor.Scriptor, error) {
+func goredis_NewDB(host string, port int, scr map[string]string) (*goredis.Scriptor, error) {
 	// opt := &goscriptor.Option{
 	// 	Host:     host,
 	// 	Port:     port,
@@ -39,7 +40,7 @@ func goscriptor_NewDB(host string, port int, scr map[string]string) (*goscriptor
 	// 	PoolSize: 1,
 	// }
 
-	opt := &goscriptor.Option{
+	opt := &goredis.Option{
 		Host:     "192.168.56.1",
 		Port:     16379,
 		Password: "",
@@ -47,12 +48,12 @@ func goscriptor_NewDB(host string, port int, scr map[string]string) (*goscriptor
 		PoolSize: 3,
 	}
 
-	scriptor, err := goscriptor.NewDB(opt, 1, scriptDefinition, &scr)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &scr)
 	return scriptor, err
 }
 
-func goscriptor_New(host string, port int, scr map[string]string, assert *assert.Assertions) (*goscriptor.Scriptor, error) {
-	// opt := &goscriptor.Option{
+func goredis_New(host string, port int, scr map[string]string, assert *assert.Assertions) (*goredis.Scriptor, error) {
+	// opt := &goredis.Option{
 	// 	Host:     host,
 	// 	Port:     port,
 	// 	Password: "",
@@ -60,7 +61,7 @@ func goscriptor_New(host string, port int, scr map[string]string, assert *assert
 	// 	PoolSize: 1,
 	// }
 
-	opt := &goscriptor.Option{
+	opt := &goredis.Option{
 		Host:     "192.168.56.1",
 		Port:     16379,
 		Password: "",
@@ -72,11 +73,11 @@ func goscriptor_New(host string, port int, scr map[string]string, assert *assert
 
 	assert.NotNil(redis)
 
-	scriptor, err := goscriptor.New(redis, 1, scriptDefinition, &scr)
+	scriptor, err := goredis.New(redis, 1, scriptDefinition, &scr)
 	return scriptor, err
 }
 
-func goscriptor_TestCase(scriptor *goscriptor.Scriptor, assert *assert.Assertions) {
+func goredis_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	var res interface{}
 	var err error
 
@@ -96,7 +97,7 @@ func goscriptor_TestCase(scriptor *goscriptor.Scriptor, assert *assert.Assertion
 	assert.Equal("script not found.", err.Error(), "they should be equal")
 }
 
-func goscriptor_TestCaseScriptNil(scriptor *goscriptor.Scriptor, assert *assert.Assertions) {
+func goredis_TestCaseScriptNil(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	var res interface{}
 	var err error
 
@@ -112,8 +113,8 @@ func goscriptor_TestCaseScriptNil(scriptor *goscriptor.Scriptor, assert *assert.
 	assert.Equal("script not found.", err.Error(), "they should be equal")
 }
 
-func Test_goscriptor_NewDB(t *testing.T) {
-	var scriptor *goscriptor.Scriptor
+func Test_goredis_NewDB(t *testing.T) {
+	var scriptor *goredis.Scriptor
 	var err error
 
 	assert := assert.New(t)
@@ -124,32 +125,32 @@ func Test_goscriptor_NewDB(t *testing.T) {
 	defer s.Close()
 
 	// scripts does not exist
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, nil)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// scripts is empty
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// register scripts
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, scripts)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, scripts)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// scripts does not exist, and reload redis cache scripts
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, nil)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// scripts is empty, and reload redis cache scripts
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// flushAll redis
 	ok, err := scriptor.Client.FlushAll(scriptor.CTX).Result()
@@ -157,24 +158,24 @@ func Test_goscriptor_NewDB(t *testing.T) {
 	assert.Equal("OK", ok, "they should be equal")
 
 	// scripts does not exist
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, nil)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// scripts is empty
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// can re-register scripts
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, scripts)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, scripts)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 }
 
-func Test_goscriptor_New(t *testing.T) {
-	var scriptor *goscriptor.Scriptor
+func Test_goredis_New(t *testing.T) {
+	var scriptor *goredis.Scriptor
 	var err error
 
 	assert := assert.New(t)
@@ -185,32 +186,32 @@ func Test_goscriptor_New(t *testing.T) {
 	defer s.Close()
 
 	// scripts does not exist
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, nil, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, nil, assert)
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// scripts is empty
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, map[string]string{}, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, map[string]string{}, assert)
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// register scripts
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, scripts, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, scripts, assert)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// scripts does not exist, and reload redis cache scripts
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, nil, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, nil, assert)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// scripts is empty, and reload redis cache scripts
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, map[string]string{}, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, map[string]string{}, assert)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 
 	// flushAll redis
 	ok, err := scriptor.Client.FlushAll(scriptor.CTX).Result()
@@ -218,18 +219,18 @@ func Test_goscriptor_New(t *testing.T) {
 	assert.Equal("OK", ok, "they should be equal")
 
 	// scripts does not exist
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, nil)
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// scripts is empty
-	scriptor, err = goscriptor_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
+	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, map[string]string{})
 	assert.Nil(err)
-	goscriptor_TestCaseScriptNil(scriptor, assert)
+	goredis_TestCaseScriptNil(scriptor, assert)
 
 	// can re-register scripts
-	scriptor, err = goscriptor_New(s.Host(), s.Server().Addr().Port, scripts, assert)
+	scriptor, err = goredis_New(s.Host(), s.Server().Addr().Port, scripts, assert)
 	assert.Nil(err)
 	// run test cases
-	goscriptor_TestCase(scriptor, assert)
+	goredis_TestCase(scriptor, assert)
 }

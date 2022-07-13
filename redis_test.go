@@ -2,6 +2,7 @@ package goredis_test
 
 import (
 	"context"
+	"goredis"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -28,7 +29,7 @@ func Test_redis(t *testing.T) {
 	assert.NotNil(mockRedisServer)
 	defer mockRedisServer.Close()
 
-	opt := &goscriptor.Option{
+	opt := &goredis.Option{
 		Host:     mockRedisServer.Host(),
 		Port:     mockRedisServer.Server().Addr().Port,
 		Password: "",

@@ -3,7 +3,7 @@ package src
 import (
 	"log"
 
-	"github.com/adimax2953/goscriptor"
+	"github.com/adimax2953/go-redis/goredis"
 )
 
 // UpdateString function - keys, args[] string - return string , eror
@@ -13,7 +13,7 @@ func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
 		return "", err
 	}
 	result := &StringResult{}
-	reader := goscriptor.NewRedisArrayReplyReader(res.([]interface{}))
+	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 
 	if result.Value == "-1" {
