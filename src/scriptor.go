@@ -1,6 +1,6 @@
 package src
 
-import "github.com/adimax2953/go-redis/goredis"
+import goredis "github.com/adimax2953/go-redis"
 
 type MyScriptor struct {
 	Scriptor *goredis.Scriptor

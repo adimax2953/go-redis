@@ -2,12 +2,11 @@ package goredis_test
 
 import (
 	"context"
-	"goredis"
 	"testing"
 
+	goredis "github.com/adimax2953/go-redis"
+	"github.com/alicebob/miniredis"
 	"github.com/stretchr/testify/assert"
-
-	"github.com/alicebob/miniredis/v2"
 )
 
 func MockRedisServer() *miniredis.Miniredis {

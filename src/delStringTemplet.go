@@ -3,7 +3,7 @@ package src
 import (
 	"log"
 
-	"github.com/adimax2953/go-redis/goredis"
+	goredis "github.com/adimax2953/go-redis"
 )
 
 // DelString function - keys, args[] string - return string , error
