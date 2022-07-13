@@ -1,4 +1,4 @@
-package goscriptor
+package goredis
 
 import (
 	"context"

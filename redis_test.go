@@ -1,4 +1,4 @@
-package go-redis_test
+package goredis_test
 
 import (
 	"context"
@@ -6,7 +6,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/adimax2953/go-redis"
 	"github.com/alicebob/miniredis/v2"
 )
 

@@ -1,4 +1,4 @@
-package go-redis
+package goredis
 
 import "fmt"
 

@@ -1,11 +1,10 @@
-package go-redis_test
+package goredis_test
 
 import (
 	"testing"
 
-	. "go-redis/src"
+	. "go-redis/goredis/src"
 
-	"github.com/adimax2953/go-redis"
 	"github.com/stretchr/testify/assert"
 )
 

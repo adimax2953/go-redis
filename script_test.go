@@ -1,1 +1,1 @@
-package go-redis_test
+package goredis_test
