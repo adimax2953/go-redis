@@ -1,9 +1,8 @@
 package src
 
 import (
-	"log"
-
 	goredis "github.com/adimax2953/go-redis"
+	logtool "github.com/adimax2953/logtool"
 )
 
 // StringResult - 字串類型回傳
@@ -20,8 +19,8 @@ func (s *MyScriptor) NewString(keys, args []string) (string, error) {
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
-	if result.Value == "-1" {
-		log.Printf("NewString err : %v\n", err)
+	if result.Value == "" {
+		logtool.LogError("NewString err : %v\n", err)
 		return "", err
 	}
 
@@ -60,13 +59,13 @@ const (
 		end
 		if DBKey and ProjectKey and TagKey and k1 and v1 then
 			redis.call("select",DBKey)
-			local r1= "-1"
+			local r1= ""
 			local Tmp = redis.call('get',ProjectKey..":"..TagKey..":"..k1)
 			if Tmp==nil or Tmp=="" or Tmp==false then
 				redis.call('set',ProjectKey..":"..TagKey..":"..k1 , v1)
 				r1 = redis.call('get',ProjectKey..":"..TagKey..":"..k1)
 			elseif Tmp~=nil and Tmp~=false then 
-				r1 = "-1"
+				r1 = ""
 			end
 			
 			return { r1 }

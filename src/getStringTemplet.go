@@ -1,9 +1,8 @@
 package src
 
 import (
-	"log"
-
 	goredis "github.com/adimax2953/go-redis"
+	logtool "github.com/adimax2953/logtool"
 )
 
 // GetString function - keys, args[] string - return string , error
@@ -15,8 +14,8 @@ func (s *MyScriptor) GetString(keys, args []string) (string, error) {
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
-	if result.Value == "-1" {
-		log.Printf("GetString err : %v\n", err)
+	if result.Value == "" {
+		logtool.LogError("GetString err : %v\n", err)
 		return "", err
 	}
 
@@ -51,7 +50,7 @@ const (
 		end
 		if DBKey and ProjectKey and TagKey and k1 then
 			redis.call("select",DBKey)
-			local r1= "-1"
+			local r1= ""
 			local Tmp = redis.call('get',ProjectKey..":"..TagKey..":"..k1)
 			if Tmp~=nil and Tmp~="" and Tmp~=false then
 				r1 = Tmp
