@@ -2,7 +2,7 @@ package src
 
 import (
 	goredis "github.com/adimax2953/go-redis"
-	logtool "github.com/adimax2953/logtool"
+	logtool "github.com/adimax2953/log-tool"
 )
 
 // UpdateString function - keys, args[] string - return string , eror
@@ -15,7 +15,7 @@ func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 
-	if result.Value == "0" {
+	if result.Value == "" {
 		logtool.LogError("UpdateString err : %v\n", err)
 		return "", err
 	}

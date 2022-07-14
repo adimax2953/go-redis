@@ -2,7 +2,7 @@ package src
 
 import (
 	goredis "github.com/adimax2953/go-redis"
-	logtool "github.com/adimax2953/logtool"
+	logtool "github.com/adimax2953/log-tool"
 )
 
 // StringResult - 字串類型回傳

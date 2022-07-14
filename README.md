@@ -1,6 +1,6 @@
 # go-redis# 
 
-Packet GoScriptor implements a way to use redis script more easily
+Packet go-redis implements a way to use redis script more easily
 
 ## Install
 
@@ -99,6 +99,11 @@ func main() {
     go get -u -v gopkg.in/guregu/null.v3
   ```
 
+- log-tool  
+
+  ```console
+    go get -u -v github.com/adimax2953/log-tool
+  ```
 ## TODO
 
 1. [X] Add test cases using "testify".

@@ -2,7 +2,7 @@ package src
 
 import (
 	goredis "github.com/adimax2953/go-redis"
-	logtool "github.com/adimax2953/logtool"
+	logtool "github.com/adimax2953/log-tool"
 )
 
 // DelString function - keys, args[] string - return string , error
@@ -15,7 +15,7 @@ func (s *MyScriptor) DelString(keys, args []string) (string, error) {
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 	if result.Value == "" {
-		logtool.LogError("DelString err : %v\n", err)
+		logtool.LogError("DelString err", err)
 		return "", err
 	}
 
