@@ -3,7 +3,7 @@ module github.com/adimax2953/go-redis
 go 1.18
 
 require (
-	github.com/adimax2953/log-tool v0.0.0-20220713145747-2064e3f7b935
+	github.com/adimax2953/log-tool v0.0.0-20220714013708-98353ef2b691
 	github.com/alicebob/miniredis/v2 v2.22.0
 	github.com/go-redis/redis/v9 v9.0.0-beta.1
 	github.com/stretchr/testify v1.8.0

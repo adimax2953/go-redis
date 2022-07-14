@@ -9,14 +9,17 @@ import (
 func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
 	res, err := s.Scriptor.ExecSha(NewStringID, keys, args)
 	if err != nil {
+		logtool.LogError("UpdateString ExecSha Error", err)
 		return "", err
 	}
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.Value = reader.ReadString()
+	logtool.LogDebug("UpdateString", reader)
 
+	result.Value = reader.ReadString()
+	logtool.LogDebug("UpdateString", result.Value)
 	if result.Value == "" {
-		logtool.LogError("UpdateString err : %v\n", err)
+		logtool.LogError("UpdateString Value Is Nil")
 		return "", err
 	}
 
@@ -56,8 +59,7 @@ const (
 		if DBKey and ProjectKey and TagKey and k1 and v1 then
 			redis.call("select",DBKey)
 			local r1= ""
-				redis.call('set',ProjectKey..":"..TagKey..":"..k1 , v1)
-				r1 = redis.call('get',ProjectKey..":"..TagKey..":"..k1)
+			r1 = redis.call('GETSET',ProjectKey..":"..TagKey..":"..k1 , v1)
 			return { r1 }
 		end				
     `
