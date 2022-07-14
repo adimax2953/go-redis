@@ -7,7 +7,7 @@ import (
 
 // GetString function - keys, args[] string - return string , error
 func (s *MyScriptor) GetString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(NewStringID, keys, args)
+	res, err := s.Scriptor.ExecSha(GetStringID, keys, args)
 	if err != nil {
 		return "", err
 	}

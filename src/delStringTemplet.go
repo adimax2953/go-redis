@@ -7,7 +7,7 @@ import (
 
 // DelString function - keys, args[] string - return string , error
 func (s *MyScriptor) DelString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(NewStringID, keys, args)
+	res, err := s.Scriptor.ExecSha(DelStringID, keys, args)
 	if err != nil {
 		return "", err
 	}

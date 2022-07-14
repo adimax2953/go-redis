@@ -7,7 +7,7 @@ import (
 
 // UpdateString function - keys, args[] string - return string , eror
 func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(NewStringID, keys, args)
+	res, err := s.Scriptor.ExecSha(UpdateStringID, keys, args)
 	if err != nil {
 		logtool.LogError("UpdateString ExecSha Error", err)
 		return "", err
@@ -59,7 +59,8 @@ const (
 		if DBKey and ProjectKey and TagKey and k1 and v1 then
 			redis.call("select",DBKey)
 			local r1= ""
-			r1 = redis.call('GETSET',ProjectKey..":"..TagKey..":"..k1 , v1)
+				redis.call('GETSET',ProjectKey..":"..TagKey..":"..k1 , v1)
+				r1 = redis.call('GET',ProjectKey..":"..TagKey..":"..k1)
 			return { r1 }
 		end				
     `

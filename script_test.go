@@ -47,7 +47,7 @@ func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 			tagKey,
 		}
 		args = []string{
-			"AAA",
+			"AAAaa",
 			"一起寫181 ",
 		}
 	)
