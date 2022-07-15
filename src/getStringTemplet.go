@@ -9,13 +9,14 @@ import (
 func (s *MyScriptor) GetString(keys, args []string) (string, error) {
 	res, err := s.Scriptor.ExecSha(GetStringID, keys, args)
 	if err != nil {
+		logtool.LogError("GetString ExecSha Error", err)
 		return "", err
 	}
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 	if result.Value == "" {
-		logtool.LogError("GetString err : %v\n", err)
+		logtool.LogError("GetString Value Is Nil")
 		return "", err
 	}
 

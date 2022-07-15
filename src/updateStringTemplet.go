@@ -14,10 +14,8 @@ func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
 	}
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	logtool.LogDebug("UpdateString", reader)
 
 	result.Value = reader.ReadString()
-	logtool.LogDebug("UpdateString", result.Value)
 	if result.Value == "" {
 		logtool.LogError("UpdateString Value Is Nil")
 		return "", err

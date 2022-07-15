@@ -14,13 +14,14 @@ type StringResult struct {
 func (s *MyScriptor) NewString(keys, args []string) (string, error) {
 	res, err := s.Scriptor.ExecSha(NewStringID, keys, args)
 	if err != nil {
+		logtool.LogError("NewString ExecSha Error", err)
 		return "", err
 	}
 	result := &StringResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 	if result.Value == "" {
-		logtool.LogError("NewString err : %v\n", err)
+		logtool.LogError("NewString Value Is Nil")
 		return "", err
 	}
 

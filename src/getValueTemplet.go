@@ -5,38 +5,39 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// DelString function - keys, args[] string - return string , error
-func (s *MyScriptor) DelString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(DelStringID, keys, args)
+// GetValue function - keys, args[] string - return int64 , error
+func (s *MyScriptor) GetValue(keys, args []string) (int64, error) {
+	res, err := s.Scriptor.ExecSha(GetValueID, keys, args)
 	if err != nil {
-		logtool.LogError("DelString ExecSha Error", err)
-		return "", err
+		logtool.LogError("GetValue ExecSha Error", err)
+		return 0, err
 	}
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.Value = reader.ReadString()
-	if result.Value == "" {
-		logtool.LogError("DelString Value Is Nil")
-		return "", err
+	result.CountDown, err = reader.ReadInt64(0)
+	if err != nil {
+		logtool.LogError("GetValue Value Error", err)
+		return 0, err
 	}
 
-	return result.Value, nil
+	return result.CountDown, nil
 }
 
-// DelString - 寫入一個字串
+// GetValue - 寫入一個字串
 const (
-	DelStringID       = "DelString"
-	DelStringTemplate = `
+	GetValueID       = "GetValue"
+	GetValueTemplate = `
 	--[[
 		Author      :   Adimax.Tsai
-		Description :   DelString
+		Description :   GetValue
 		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
 		local ProjectKey                                    = KEYS[2]
 		local TagKey                                        = KEYS[3]
 		local k1                                            = ARGV[1]
-		local sender                                        = "DelString.lua"
+		local k2                                            = ARGV[2]
+		local sender                                        = "GetValue.lua"
 		if not DBKey or DBKey=="" then
 			return  {err="invalid argument 'DBKey'", sender=sender}
 		end
@@ -49,12 +50,14 @@ const (
 		if not k1 or k1=="" then
 			return  {err="invalid argument 'k1'", sender=sender}
 		end
-		if DBKey and ProjectKey and TagKey and k1 then
+		if not k2 or k2=="" then
+			return  {err="invalid argument 'k2'", sender=sender}
+		end
+		if DBKey and ProjectKey and TagKey and k1 and k2 then
 			redis.call("select",DBKey)
-
-			local r1= redis.call('del',ProjectKey..":"..TagKey..":"..k1)
-
-			return { tostring(r1) }
+			local result ={}
+			result = redis.call('hget',ProjectKey..":"..TagKey..":"..k1,k2)
+			return {result}
 		end
     `
 )
