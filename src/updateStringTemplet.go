@@ -12,7 +12,7 @@ func (s *MyScriptor) UpdateString(keys, args []string) (string, error) {
 		logtool.LogError("UpdateString ExecSha Error", err)
 		return "", err
 	}
-	result := &StringResult{}
+	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 
 	result.Value = reader.ReadString()

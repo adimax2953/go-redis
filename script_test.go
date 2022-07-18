@@ -24,9 +24,12 @@ func Test_goredis_Script(t *testing.T) {
 	// scripts does not exist
 	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
-	script_TestCase(scriptor, assert)
+	//script_TestCase(scriptor, assert)
+
+	roomscript_TestCase(scriptor, assert)
 
 }
+
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -52,14 +55,7 @@ func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		}
 	)
 
-	scripts := map[string]string{
-		src.UpdateStringID: src.UpdateStringTemplate,
-		src.GetStringID:    src.GetStringTemplate,
-		src.NewStringID:    src.NewStringTemplate,
-		src.DelStringID:    src.DelStringTemplate,
-	}
-
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &scripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.Scripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
@@ -72,4 +68,50 @@ func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		logtool.LogFatal(err.Error())
 	}
 	logtool.LogDebug(res)
+}
+
+func roomscript_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "192.168.56.1",
+		Port:     16379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "TGaming|0.0.1"
+		/*dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+		args = []string{
+			"AAAaa",
+			"一起寫181 ",
+		}*/
+	)
+	logtool.LogDebug("", src.Scripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.Scripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	res, err := myscript.RoomJoin("2", "test", "2311", "game1", "coin1", "test001", 20, 1, "220718", false, "")
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("", res)
+
+	res2, err := myscript.RoomLeft("2", "test", "2311", "game1", "coin1", "test001")
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("", res2)
 }

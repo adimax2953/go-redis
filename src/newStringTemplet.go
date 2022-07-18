@@ -5,10 +5,6 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// StringResult - 字串類型回傳
-type StringResult struct {
-	Value string
-}
 
 // NewString function - keys, args[] string - return string , error
 func (s *MyScriptor) NewString(keys, args []string) (string, error) {
@@ -17,7 +13,7 @@ func (s *MyScriptor) NewString(keys, args []string) (string, error) {
 		logtool.LogError("NewString ExecSha Error", err)
 		return "", err
 	}
-	result := &StringResult{}
+	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
 	if result.Value == "" {
