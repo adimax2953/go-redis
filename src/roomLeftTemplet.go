@@ -7,8 +7,7 @@ import (
 
 // RoomLeft function - keys, args[] string - return string , error
 func (s *MyScriptor) RoomLeft(
-	redisDB string,
-	projectID string,
+	keys []string,
 	platformID string,
 	gameID string,
 	countryCode string,
@@ -16,14 +15,12 @@ func (s *MyScriptor) RoomLeft(
 
 ) (interface{}, error) {
 	args := []string{
-		redisDB,
-		projectID,
 		platformID,
 		gameID,
 		countryCode,
 		playerID,
 	}
-	res, err := s.Scriptor.ExecSha(RoomLeftID, nil, args)
+	res, err := s.Scriptor.ExecSha(RoomLeftID, keys, args)
 	if err != nil {
 		logtool.LogError("RoomLeft ExecSha Error", err)
 		return "", errors.WithStack(err)
@@ -36,14 +33,15 @@ func (s *MyScriptor) RoomLeft(
 const (
 	RoomLeftID       = "RoomLeft"
 	RoomLeftTemplate = `
-	local redisDb = ARGV[1]
-	local projectId = ARGV[2]
-	local platformId = ARGV[3]
-	local gameId = ARGV[4]
-	local currency = ARGV[5]
-	local playerId = ARGV[6]
+	local DBKey                                         = tonumber(KEYS[1])
+	local ProjectKey                                    = KEYS[2]
+	local TagKey                                        = KEYS[3]
+	local platformId = ARGV[1]
+	local gameId = ARGV[2]
+	local countrycode = ARGV[3]
+	local playerId = ARGV[4]
 	
-	local scope = table.concat({projectId, platformId, gameId, currency}, "/")
+	local scope = table.concat({ProjectKey, platformId, gameId, countrycode}, "/")
 	
 	local function log(v)
 		local s = ""
@@ -102,12 +100,12 @@ const (
 		redis.call(
 			"PUBLISH", "RoomClose",
 				table.concat(
-					{platformId, gameId, currency, roomId, "RoomClose"}, "~"
+					{platformId, gameId, countrycode, roomId, "RoomClose"}, "~"
 				)
 		)
 		redis.call(
-			"SREM", projectId .. "/rooms",
-				table.concat({platformId, gameId, currency, roomId}, ":")
+			"SREM", ProjectKey .. "/rooms",
+				table.concat({platformId, gameId, countrycode, roomId}, "/")
 		)
 	
 		redis.call("ZREM", makeKey({"rooms"}), roomId)
@@ -117,7 +115,7 @@ const (
 		redis.call("DEL", makeKey({"room", roomId}))
 	end
 	
-	redis.call("SELECT", redisDb)
+	redis.call("SELECT", DBKey)
 	
 	local roomId = redis.call("HGET", makeKey({"playerToRoom"}), playerId)
 	
@@ -155,10 +153,10 @@ const (
 	redis.call(
 		"PUBLISH", "RoomUpdate", cjson.encode(
 			{
-				projectId = projectId,
+				projectId = ProjectKey,
 				platformId = platformId,
 				gameId = gameId,
-				currency = currency,
+				countrycode = countrycode,
 				roomId = roomId,
 				players = players
 			}

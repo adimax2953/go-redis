@@ -28,8 +28,7 @@ type RoomJoinError struct {
 
 // RoomJoin function - args[] string - return string , error
 func (s *MyScriptor) RoomJoin(
-	redisDB string,
-	projectID string,
+	keys []string,
 	platformID string,
 	gameID string,
 	countryCode string,
@@ -45,8 +44,6 @@ func (s *MyScriptor) RoomJoin(
 		isBotString = "isBot"
 	}
 	args := []string{
-		redisDB,
-		projectID,
 		platformID,
 		gameID,
 		countryCode,
@@ -57,7 +54,7 @@ func (s *MyScriptor) RoomJoin(
 		isBotString,
 		roomId,
 	}
-	res, err := s.Scriptor.ExecSha(RoomJoinID, nil, args)
+	res, err := s.Scriptor.ExecSha(RoomJoinID, keys, args)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
@@ -72,20 +69,24 @@ const (
 	RoomJoinID       = "RoomJoin"
 	RoomJoinTemplate = `
 	--[[
+		Author      :   Adimax.Tsai
+		Description :   RoomJoin
+		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} {v2}
 	--]]
 	-- 配房功能
-	local db = ARGV[1]
-	local projectId = ARGV[2]
-	local platformId = ARGV[3]
-	local gameId = ARGV[4]
-	local currency = ARGV[5]
-	local playerId = ARGV[6]
-	local maxPlayerCount = tonumber(ARGV[7])
-	local seatsCount = tonumber(ARGV[8])
-	local date = ARGV[9] -- YYMMDD, this is used to generate roomId
-	local isBot = ARGV[10] == "isBot"
-	local roomId = ARGV[11]
-	local scope = table.concat({projectId, platformId, gameId, currency}, "/")
+	local DBKey                                         = tonumber(KEYS[1])
+	local ProjectKey                                    = KEYS[2]
+	local TagKey                                        = KEYS[3]
+	local platformId = ARGV[1]
+	local gameId = ARGV[2]
+	local countrycode = ARGV[3]
+	local playerId = ARGV[4]
+	local maxPlayerCount = tonumber(ARGV[5])
+	local seatsCount = tonumber(ARGV[6])
+	local date = ARGV[7] -- YYMMDD, this is used to generate roomId
+	local isBot = ARGV[8] == "isBot"
+	local roomId = ARGV[9]
+	local scope = table.concat({ProjectKey, platformId, gameId, countrycode}, "/")
 	
 	if maxPlayerCount == nil or not (maxPlayerCount > 0) then
 		error("maxPlayerCount should be a positive integer")
@@ -190,8 +191,8 @@ const (
 		}
 	
 		redis.call(
-			"SADD", projectId .. "/rooms",
-				table.concat({platformId, gameId, currency, roomId}, ":")
+			"SADD", ProjectKey.. "/rooms",
+				table.concat({platformId, gameId, countrycode, roomId}, "/")
 		)
 		redis.call("ZADD", makeKey({"rooms"}), getTime(), roomId)
 		hset(makeKey({"room", roomId}), room)
@@ -208,7 +209,7 @@ const (
 	
 		redis.call(
 			"PUBLISH", "RoomOpen",
-				table.concat({platformId, gameId, currency, roomId, "RoomOpen"}, "~")
+				table.concat({platformId, gameId, countrycode, roomId, "RoomOpen"}, "~")
 		)
 		return room
 	end
@@ -257,10 +258,10 @@ const (
 		redis.call(
 			"PUBLISH", "RoomUpdate", cjson.encode(
 				{
-					projectId = projectId,
+					ProjectKey= ProjectKey,
 					platformId = platformId,
 					gameId = gameId,
-					currency = currency,
+					countrycode = countrycode,
 					roomId = roomId,
 					players = players
 				}
@@ -288,7 +289,7 @@ const (
 		return list
 	end
 	
-	redis.call("select", db)
+	redis.call("select", DBKey)
 	
 	if not isBot and getRoomIdOfPlayer(playerId) then
 		return cjson.encode(
@@ -311,7 +312,7 @@ const (
 		end
 	else
 		room = getAvailableRoom() or createRoom()
-		log(room)
+		--log(room)
 	end
 	
 	local room, seatId = addPlayerToRoom(playerId, room)

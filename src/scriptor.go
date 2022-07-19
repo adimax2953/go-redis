@@ -14,7 +14,7 @@ type MyScriptor struct {
 	Scriptor *goredis.Scriptor
 }
 
-var Scripts = map[string]string{
+var LuaScripts = map[string]string{
 	//Room
 	RoomJoinID: RoomJoinTemplate,
 	RoomLeftID: RoomLeftTemplate,
