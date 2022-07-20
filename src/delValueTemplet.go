@@ -1,19 +1,9 @@
 package src
 
-import (
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelValue function - keys, args[] string
+func (s *MyScriptor) DelValue(keys, args []string) {
 
-// DelValue function - keys, args[] string - return int64 , error
-func (s *MyScriptor) DelValue(keys, args []string) (int64, error) {
-	_, err := s.Scriptor.ExecSha(DelValueID, keys, args)
-	if err != nil {
-		logtool.LogError("DelValue ExecSha Error", err)
-		return 0, err
-	}
-	result := &RedisResult{}
-
-	return result.CountDown, nil
+	s.Scriptor.ExecSha(DelValueID, keys, args)
 }
 
 // DelValue - 寫入一個數字

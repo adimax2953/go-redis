@@ -1,7 +1,6 @@
 package goredis_test
 
 import (
-	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -27,12 +26,55 @@ func Test_goredis_Script(t *testing.T) {
 	assert.Nil(err)
 	//script_TestCase(scriptor, assert)
 
+	// room test
 	room_join_TestCase(scriptor, assert)
 	room_left_TestCase(scriptor, assert)
-	//room_join_bot_TestCase(scriptor, assert)
-	//room_left_bot_TestCase(scriptor, assert)
-	//room_list_TestCase(scriptor, assert)
+	room_join_bot_TestCase(scriptor, assert)
+	room_left_bot_TestCase(scriptor, assert)
+	room_list_TestCase(scriptor, assert)
 	room_player_TestCase(scriptor, assert)
+
+	//string test
+	string_new_TestCase(scriptor, assert)
+	string_update_TestCase(scriptor, assert)
+	string_get_TestCase(scriptor, assert)
+	string_del_TestCase(scriptor, assert)
+	string_update_ttl_TestCase(scriptor, assert)
+
+	//Hash test
+	hash_new_TestCase(scriptor, assert)
+	hash_update_TestCase(scriptor, assert)
+	hash_get_TestCase(scriptor, assert)
+	hash_del_TestCase(scriptor, assert)
+	hash_del_all_TestCase(scriptor, assert)
+	hash_get_all_TestCase(scriptor, assert)
+
+	//list test
+	list_new_TestCase(scriptor, assert)
+	list_update_TestCase(scriptor, assert)
+	list_get_TestCase(scriptor, assert)
+	list_get_length_TestCase(scriptor, assert)
+	list_get_all_TestCase(scriptor, assert)
+	list_get_pop_TestCase(scriptor, assert)
+	list_del_TestCase(scriptor, assert)
+	list_del_all_TestCase(scriptor, assert)
+
+	//set test
+	set_new_TestCase(scriptor, assert)
+	set_update_TestCase(scriptor, assert)
+	set_get_TestCase(scriptor, assert)
+	set_get_random_TestCase(scriptor, assert)
+	set_get_all_TestCase(scriptor, assert)
+	set_del_TestCase(scriptor, assert)
+	set_del_all_TestCase(scriptor, assert)
+
+	//zset test
+	zset_new_TestCase(scriptor, assert)
+	zset_update_TestCase(scriptor, assert)
+	zset_get_TestCase(scriptor, assert)
+	zset_get_all_TestCase(scriptor, assert)
+	zset_del_TestCase(scriptor, assert)
+	zset_del_all_TestCase(scriptor, assert)
 }
 
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
@@ -69,228 +111,4 @@ func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		logtool.LogFatal(err.Error())
 	}
 	logtool.LogDebug(res)
-}
-
-func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	res, err := myscript.RoomList(keys)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-	logtool.LogDebug("RoomList:", res)
-}
-
-func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	res, err := myscript.RoomPlayer(keys, "2311", "game1", "coin1")
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-	logtool.LogDebug("RoomPlayer", res)
-
-}
-
-func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	for i := 0; i < 10; i++ {
-		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 20, 20, "220719", false, "")
-		if err != nil {
-			logtool.LogFatal(err.Error())
-		}
-		logtool.LogDebug("RoomJoin", res)
-	}
-}
-
-func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-	for i := 0; i < 5; i++ {
-		res, err := myscript.RoomLeft(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i))
-		if err != nil {
-			logtool.LogFatal(err.Error())
-		}
-		logtool.LogDebug("RoomLeft", res)
-	}
-}
-func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	for i := 10; i < 20; i++ {
-		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 1, 20, "220719", true, "220719000000000"+strconv.Itoa(i-9))
-		if err != nil {
-			logtool.LogFatal(err.Error())
-		}
-		logtool.LogDebug("RoomJoinBot", res)
-	}
-}
-
-func room_left_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	for i := 10; i < 20; i++ {
-		res, err := myscript.RoomLeft(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i))
-		if err != nil {
-			logtool.LogFatal(err.Error())
-		}
-		logtool.LogDebug("RoomLeftBot", res)
-	}
 }

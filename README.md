@@ -108,6 +108,6 @@ func main() {
 
 1. [X] Add test cases using "testify".
 2. [X] Add redis script test method.
-3. [ ] script_test unit test.
-4. [ ] Improve or remove useless code.
-5. [ ] Check code formatting.
+3. [X] script_test unit test.
+4. [X] Improve or remove useless code.
+5. [X] Check code formatting.

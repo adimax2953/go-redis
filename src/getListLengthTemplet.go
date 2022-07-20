@@ -42,7 +42,7 @@ const (
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
-			local r1 = "-1"
+			local r1 = ""
 			local tmp = redis.call('llen',MAIN_KEY)
 			if tmp~= nil and tmp~= false then
 				r1= tmp

@@ -1,19 +1,9 @@
 package src
 
-import (
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelHash function - keys, args[] string
+func (s *MyScriptor) DelHash(keys, args []string) {
 
-// DelHash function - keys, args[] string - return string , error
-func (s *MyScriptor) DelHash(keys, args []string) (string, error) {
-	_, err := s.Scriptor.ExecSha(DelHashID, keys, args)
-	if err != nil {
-		logtool.LogError("DelHash ExecSha Error", err)
-		return "", err
-	}
-	result := &RedisResult{}
-
-	return result.Value, nil
+	s.Scriptor.ExecSha(DelHashID, keys, args)
 }
 
 // DelHash - 減少數值

@@ -5,7 +5,7 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// GetSetRandom function - keys, args[] string - return *[]HashResult , error
+// GetSetRandom function - keys, args[subkey,request datacount] string - return *[]HashResult , error
 func (s *MyScriptor) GetSetRandom(keys, args []string) (*[]RedisResult, error) {
 	res, err := s.Scriptor.ExecSha(GetSetRandomID, keys, args)
 	if err != nil {

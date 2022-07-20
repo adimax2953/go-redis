@@ -1,19 +1,9 @@
 package src
 
-import (
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelSet function - keys, args[] string
+func (s *MyScriptor) DelSet(keys, args []string) {
 
-// DelSet function - keys, args[] string - return string , error
-func (s *MyScriptor) DelSet(keys, args []string) (string, error) {
-	_, err := s.Scriptor.ExecSha(DelSetID, keys, args)
-	if err != nil {
-		logtool.LogError("DelSet ExecSha Error", err)
-		return "", err
-	}
-	result := &RedisResult{}
-
-	return result.Value, nil
+	s.Scriptor.ExecSha(DelSetID, keys, args)
 }
 
 // DelSet - 減少數值

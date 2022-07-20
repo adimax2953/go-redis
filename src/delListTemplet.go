@@ -1,19 +1,9 @@
 package src
 
-import (
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelList function - keys, args[] string
+func (s *MyScriptor) DelList(keys, args []string) {
 
-// DelList function - keys, args[] string - return string , error
-func (s *MyScriptor) DelList(keys, args []string) (string, error) {
-	_, err := s.Scriptor.ExecSha(DelListID, keys, args)
-	if err != nil {
-		logtool.LogError("DelList ExecSha Error", err)
-		return "", err
-	}
-	result := &RedisResult{}
-
-	return result.Value, nil
+	s.Scriptor.ExecSha(DelListID, keys, args)
 }
 
 // DelList - 減少數值

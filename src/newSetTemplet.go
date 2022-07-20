@@ -42,9 +42,9 @@ const (
 		if DBKey and ProjectKey and TagKey and k1 and v1 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
-			redis.call("select",DBKey)
-			local r1= ""
-			redis.call('sadd',MAIN_KEY ,v1)
+			redis.call("select",DBKey)			
+
+			local r1 = redis.call('sadd',MAIN_KEY ,v1)			
 			local tmp = redis.call('sismember',MAIN_KEY ,v1)
 			if tmp == 1 then
 				r1 = v1

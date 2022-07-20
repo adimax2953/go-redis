@@ -44,13 +44,12 @@ const (
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
-			redis.call('srem',MAIN_KEY ,v1)
-			local r1= ""    
-			r1 = redis.call('sadd',MAIN_KEY ,v2)
+			redis.call('srem',MAIN_KEY ,v1)			
+			local r1 = redis.call('sadd',MAIN_KEY ,v2)
 			if r1 == 1 then 
 				return { tostring(v2) }
 			else
-				r1= ""
+				r1= "-1"
 				return { tostring(r1) }
 			end
 		end

@@ -53,7 +53,7 @@ var LuaScripts = map[string]string{
 	DelListID:       DelListTemplate,
 	DelListAllID:    DelListAllTemplate,
 	//Set
-	NewSetID:       NewStringTemplate,
+	NewSetID:       NewSetTemplate,
 	GetSetID:       GetSetTemplate,
 	GetSetRandomID: GetSetRandomTemplate,
 	GetSetAllID:    GetSetAllTemplate,

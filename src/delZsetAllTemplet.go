@@ -1,19 +1,9 @@
 package src
 
-import (
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelZsetAll function - keys, args[] string
+func (s *MyScriptor) DelZsetAll(keys, args []string) {
 
-// DelZsetAll function - keys, args[] string - return int64 , error
-func (s *MyScriptor) DelZsetAll(keys, args []string) (int64, error) {
-	_, err := s.Scriptor.ExecSha(DelZsetAllID, keys, args)
-	if err != nil {
-		logtool.LogError("DelZsetAll ExecSha Error", err)
-		return 0, err
-	}
-	result := &RedisResult{}
-
-	return result.CountDown, nil
+	s.Scriptor.ExecSha(DelZsetAllID, keys, args)
 }
 
 // DelZsetAll - 寫入一個數字

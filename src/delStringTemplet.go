@@ -1,26 +1,9 @@
 package src
 
-import (
-	goredis "github.com/adimax2953/go-redis"
-	logtool "github.com/adimax2953/log-tool"
-)
+// DelString function - keys, args[] string
+func (s *MyScriptor) DelString(keys, args []string) {
 
-// DelString function - keys, args[] string - return string , error
-func (s *MyScriptor) DelString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(DelStringID, keys, args)
-	if err != nil {
-		logtool.LogError("DelString ExecSha Error", err)
-		return "", err
-	}
-	result := &RedisResult{}
-	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.Value = reader.ReadString()
-	if result.Value == "" {
-		logtool.LogError("DelString Value Is Nil")
-		return "", err
-	}
-
-	return result.Value, nil
+	s.Scriptor.ExecSha(DelStringID, keys, args)
 }
 
 // DelString - 寫入一個字串
