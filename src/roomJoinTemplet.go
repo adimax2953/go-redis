@@ -158,12 +158,12 @@ const (
 		if tonumber(currentId) == nil then
 			lastDate = 0
 		else
-			lastDate = math.floor(currentId / 1e9)
+			lastDate = math.floor(currentId / 1e10)
 		end
 	
 		local id = 0
 		if (tonumber(date) > lastDate) then
-			id = math.floor(date * 1e9 + 1)
+			id = math.floor(date * 1e10 + 1)
 		else
 			id = math.floor(currentId + 1)
 		end
@@ -227,7 +227,7 @@ const (
 	---@param playerId string
 	---@param room table
 	---@return table, string
-	local function addPlayerToRoom(playerId, room)
+	local function addPlayerToRoom(playerId, room, playerType)
 		room.currentPlayerCount = room.currentPlayerCount + 1
 		if isBot then
 			room.currentBotCount = room.currentBotCount + 1
@@ -245,7 +245,7 @@ const (
 			"HSET", makeKey({"room", room.roomId, "playerToSeat"}), playerId, seatId
 		)
 	
-		redis.call("HSET", makeKey({"playerToRoom"}), playerId, room.roomId)
+		redis.call("HSET", makeKey({"playerToRoom"}), playerId, table.concat({playerType, seatId, room.roomId}, ":"))
 	
 		return room, seatId
 	end
@@ -303,7 +303,9 @@ const (
 	end
 	
 	local room
+	local playerType = "P"
 	if isBot then
+		playerType="B"
 		room = getRoom(roomId)
 		if next(room) == nil then
 			return cjson.encode(
@@ -315,7 +317,7 @@ const (
 		--log(room)
 	end
 	
-	local room, seatId = addPlayerToRoom(playerId, room)
+	local room, seatId = addPlayerToRoom(playerId, room, playerType)
 	local players = getPlayersInRoom(room.roomId)
 	publishPlayerJoinRoom(room.roomId, playerId, seatId, players)
 	

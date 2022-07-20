@@ -87,7 +87,7 @@ const (
 		local players = hgetall(makeKey({"room", roomId, "playerToSeat"}))
 		local list = {}
 		for k, v in pairs(players) do
-			table.insert(list, {userid = k, seatid = v, roomid = roomId})
+			table.insert(list, {userID = k, seatID = v, roomID = roomId})
 		end
 		if #list == 0 then
 			return cjson.null
@@ -115,6 +115,17 @@ const (
 		redis.call("DEL", makeKey({"room", roomId}))
 	end
 	
+	---@param str string
+	---@param separator string
+	---@return string[]
+	local function split(str, separator)
+		local t = {}
+		for s in string.gmatch(str, "([^" .. separator .. "]+)") do
+			table.insert(t, s)
+		end
+		return t
+	end
+
 	redis.call("SELECT", DBKey)
 	
 	local roomId = redis.call("HGET", makeKey({"playerToRoom"}), playerId)
@@ -123,10 +134,12 @@ const (
 		return "PLAYER_NOT_IN_A_ROOM"
 	end
 	
+	local parts = split(roomId, ":")
+	roomId = parts[3]
 	local seatId = redis.call(
 		"HGET", makeKey({"room", roomId, "playerToSeat"}), playerId
 	)
-	
+
 	if not seatId then
 		error("internal error: cannot find seatId.")
 	end
@@ -150,21 +163,24 @@ const (
 	
 	local players = getPlayersInRoom(roomId)
 	
+	local result = cjson.encode(
+		{
+			projectID = ProjectKey,
+			platformID = platformId,
+			gameID = gameId,
+			countryCode = countrycode,
+			roomID = roomId,
+			players = players,
+			status = "ok"
+		})
+
 	redis.call(
-		"PUBLISH", "RoomUpdate", cjson.encode(
-			{
-				projectId = ProjectKey,
-				platformId = platformId,
-				gameId = gameId,
-				countrycode = countrycode,
-				roomId = roomId,
-				players = players
-			}
+		"PUBLISH", "RoomUpdate", result
 		)
-	)
+	
 	
 	redis.call("HDEL", makeKey({"playerToRoom"}), playerId)
 	
-	return "OK"	
+	return result
     `
 )
