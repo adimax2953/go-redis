@@ -48,7 +48,7 @@ const (
 			local r1= ""
 				redis.call('mset',MAIN_KEY , v1)
 		
-			redis.call('expire',MAIN_KEY,100)
+			redis.call('expire',MAIN_KEY,10)
 				r1 = redis.call('mget',MAIN_KEY)
 			return { r1 }
 		end
