@@ -1,7 +1,5 @@
-github.com/adimax2953/log-tool v0.0.0-20220713145747-2064e3f7b935 h1:DvXgXxd1gJJigFMCi3nUFHmd2nfFhgyRgFx3G9UUi6Y=
-github.com/adimax2953/log-tool v0.0.0-20220713145747-2064e3f7b935/go.mod h1:XgH/D0Ujfr5LBJNh2PJVkC0qdwICd0OHiv2BY9ry8+s=
-github.com/adimax2953/log-tool v0.0.0-20220714013708-98353ef2b691 h1:ewymPkbpQ4pw7FEEBUxHryY+wIaZh353Ss6dz8rlLBE=
-github.com/adimax2953/log-tool v0.0.0-20220714013708-98353ef2b691/go.mod h1:XgH/D0Ujfr5LBJNh2PJVkC0qdwICd0OHiv2BY9ry8+s=
+github.com/adimax2953/log-tool v0.0.3 h1:CcLxDnWnUZcPP+2oMc5kq8jlaRv2ZUjPWC/NpSPKyf4=
+github.com/adimax2953/log-tool v0.0.3/go.mod h1:XgH/D0Ujfr5LBJNh2PJVkC0qdwICd0OHiv2BY9ry8+s=
 github.com/alicebob/gopher-json v0.0.0-20200520072559-a9ecdc9d1d3a h1:HbKu58rmZpUGpz5+4FfNmIU+FmZg2P3Xaj2v2bfNWmk=
 github.com/alicebob/gopher-json v0.0.0-20200520072559-a9ecdc9d1d3a/go.mod h1:SGnFV6hVsYE877CKEZ6tDNTjaSXYUk6QqoIK6PrAtcc=
 github.com/alicebob/miniredis/v2 v2.22.0 h1:lIHHiSkEyS1MkKHCHzN+0mWrA4YdbGdimE5iZ2sHSzo=

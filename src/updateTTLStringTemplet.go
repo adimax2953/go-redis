@@ -7,7 +7,7 @@ import (
 
 // UpdateTTLString function - keys, args[] string - return string , eror
 func (s *MyScriptor) UpdateTTLString(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(UpdateStringID, keys, args)
+	res, err := s.Scriptor.ExecSha(UpdateTTLStringID, keys, args)
 	if err != nil {
 		logtool.LogError("UpdateTTLString ExecSha Error", err)
 		return "", err
@@ -46,10 +46,10 @@ const (
 		
 			redis.call("select",DBKey)
 			local r1= ""
-				redis.call('mset',MAIN_KEY , v1)
+				redis.call('MSET',MAIN_KEY , v1)
 		
-			redis.call('expire',MAIN_KEY,10)
-				r1 = redis.call('mget',MAIN_KEY)
+			redis.call('EXPIRE', MAIN_KEY , 10 )
+				r1 = redis.call('MGET',MAIN_KEY)
 			return { r1 }
 		end
     `

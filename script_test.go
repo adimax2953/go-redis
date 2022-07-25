@@ -75,6 +75,7 @@ func Test_goredis_Script(t *testing.T) {
 	zset_get_all_TestCase(scriptor, assert)
 	zset_del_TestCase(scriptor, assert)
 	zset_del_all_TestCase(scriptor, assert)
+
 }
 
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
