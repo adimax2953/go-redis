@@ -104,6 +104,7 @@ func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 			tagKey,
 		}
 	)
+
 	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
