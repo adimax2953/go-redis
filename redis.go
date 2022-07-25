@@ -8,11 +8,12 @@ import (
 
 // Option - Redis Option
 type Option struct {
-	Host     string
-	Port     int
-	Password string
-	DB       int
-	PoolSize int
+	Host             string
+	Port             int
+	Password         string
+	DB               int
+	PoolSize         int
+	ScriptDefinition string
 }
 
 // Create - create a new redis descriptor
