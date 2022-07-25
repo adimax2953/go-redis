@@ -1,4 +1,4 @@
-package src
+package Src
 
 import goredis "github.com/adimax2953/go-redis"
 

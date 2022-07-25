@@ -4,7 +4,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	goredis "github.com/adimax2953/go-redis"
-	"github.com/adimax2953/go-redis/src"
+	"github.com/adimax2953/go-redis/Src"
 	logtool "github.com/adimax2953/log-tool"
 )
 
@@ -28,12 +28,12 @@ func list_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -79,12 +79,12 @@ func list_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -119,12 +119,12 @@ func list_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -158,12 +158,12 @@ func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -207,12 +207,12 @@ func list_get_length_TestCase(scriptor *goredis.Scriptor, assert *assert.Asserti
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -245,12 +245,12 @@ func list_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
@@ -282,12 +282,12 @@ func list_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 
@@ -320,12 +320,12 @@ func list_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 			tagKey,
 		}
 	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &src.LuaScripts)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
-	myscript := &src.MyScriptor{
+	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 

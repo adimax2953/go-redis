@@ -1,4 +1,4 @@
-package src
+package Src
 
 import (
 	"sync"

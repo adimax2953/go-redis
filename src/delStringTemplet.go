@@ -1,4 +1,4 @@
-package src
+package Src
 
 // DelString function - keys, args[] string
 func (s *MyScriptor) DelString(keys, args []string) {

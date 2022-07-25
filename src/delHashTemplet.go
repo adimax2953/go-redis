@@ -1,4 +1,4 @@
-package src
+package Src
 
 // DelHash function - keys, args[] string
 func (s *MyScriptor) DelHash(keys, args []string) {
