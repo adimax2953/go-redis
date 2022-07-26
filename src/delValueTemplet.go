@@ -6,7 +6,7 @@ func (s *MyScriptor) DelValue(keys, args []string) {
 	s.Scriptor.ExecSha(DelValueID, keys, args)
 }
 
-// DelValue - 寫入一個數字
+// DelValue - 刪除一個數值
 const (
 	DelValueID       = "DelValue"
 	DelValueTemplate = `

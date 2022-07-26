@@ -14,16 +14,16 @@ func (s *MyScriptor) IncValue(keys, args []string) (int64, error) {
 	}
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.CountDown, err = reader.ReadInt64(0)
+	result.ValueInt64, err = reader.ReadInt64(0)
 	if err != nil {
 		logtool.LogError("IncValue Value Error", err)
 		return 0, err
 	}
 
-	return result.CountDown, nil
+	return result.ValueInt64, nil
 }
 
-// IncValue - 寫入一個數字
+// IncValue - 增加數字
 const (
 	IncValueID       = "IncValue"
 	IncValueTemplate = `

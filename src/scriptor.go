@@ -4,10 +4,12 @@ import goredis "github.com/adimax2953/go-redis"
 
 // RedisResult -
 type RedisResult struct {
-	Value     string
-	Value2    string
-	CountDown int64
-	EndTime   int64
+	Value      string
+	Value2     string
+	CountDown  int64
+	EndTime    int64
+	ValueInt64 int64
+	Key        string
 }
 
 type MyScriptor struct {
@@ -21,15 +23,17 @@ var LuaScripts = map[string]string{
 	RoomListID:   RoomListTemplate,
 	RoomPlayerID: RoomPlayerTemplate,
 	//Value
-	IncValueID: IncValueTemplate,
-	GetValueID: GetValueTemplate,
-	DecValueID: DecValueTemplate,
-	DelValueID: DelValueTemplate,
+	IncValueID:    IncValueTemplate,
+	GetValueID:    GetValueTemplate,
+	GetValueAllID: GetValueAllTemplate,
+	DecValueID:    DecValueTemplate,
+	DelValueID:    DelValueTemplate,
+	TakeValueID:   TakeValueTemplate,
 	//CountDown
 	IncCountDownID: IncCountDownTemplate,
 	GetCountDownID: GetCountDownTemplate,
 	DecCountDownID: DecCountDownTemplate,
-	DelCountDownID: DecCountDownTemplate,
+	DelCountDownID: DelCountDownTemplate,
 	//String
 	NewStringID:       NewStringTemplate,
 	UpdateStringID:    UpdateStringTemplate,
@@ -58,7 +62,7 @@ var LuaScripts = map[string]string{
 	GetSetRandomID: GetSetRandomTemplate,
 	GetSetAllID:    GetSetAllTemplate,
 	UpdateSetID:    UpdateSetTemplate,
-	DelSetID:       DelSetAllTemplate,
+	DelSetID:       DelSetTemplate,
 	DelSetAllID:    DelSetAllTemplate,
 	//Zset
 	NewZsetID:    NewZsetTemplate,

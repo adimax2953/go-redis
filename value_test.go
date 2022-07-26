@@ -8,7 +8,7 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-func hash_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
@@ -37,19 +37,19 @@ func hash_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		Scriptor: scriptor,
 	}
 	args := []string{
-		"hashtest",
-		"NewHashkey",
-		"NewHash",
+		"valuetest",
+		"Value",
+		"500",
 	}
-	res, err := myscript.NewHash(keys, args)
+	res, err := myscript.IncValue(keys, args)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("NewHash", res)
+	logtool.LogDebug("ValueInc", res)
 
 }
 
-func hash_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
@@ -78,18 +78,18 @@ func hash_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 		Scriptor: scriptor,
 	}
 	args := []string{
-		"hashtest",
-		"UpdateHashkey",
-		"UpdateHash",
+		"valuetest",
+		"Value",
+		"100",
 	}
-	res, err := myscript.UpdateHash(keys, args)
+	res, err := myscript.DecValue(keys, args)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("UpdateHash", res)
+	logtool.LogDebug("ValueDec", res)
 }
 
-func hash_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+func value_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
@@ -118,16 +118,16 @@ func hash_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		Scriptor: scriptor,
 	}
 	args := []string{
-		"hashtest",
-		"UpdateHash",
+		"valuetest",
+		"Value3",
 	}
-	res, err := myscript.GetHash(keys, args)
+	res, err := myscript.GetValue(keys, args)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("GetHash", res)
+	logtool.LogDebug("ValueGet", res)
 }
-func hash_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+func value_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
@@ -156,16 +156,16 @@ func hash_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 		Scriptor: scriptor,
 	}
 	args := []string{
-		"hashtest",
-		"GetHashAll",
+		"valuetest",
+		"Value",
 	}
-	res, err := myscript.GetHashAll(keys, args)
+	res, err := myscript.GetValueAll(keys, args)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("GetHashAll", *res)
+	logtool.LogDebug("ValueGetAll", *res)
 }
-func hash_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+func value_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
@@ -195,48 +195,10 @@ func hash_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	}
 
 	args := []string{
-		"hashtest",
-		"UpdateHash",
+		"valuetest",
+		"Value3",
 	}
-	myscript.DelHash(keys, args)
+	myscript.DelValue(keys, args)
 
-	logtool.LogDebug("DelHash")
-}
-
-func hash_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "192.168.56.1",
-		Port:     16379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &Src.MyScriptor{
-		Scriptor: scriptor,
-	}
-
-	args := []string{
-		"hashtest",
-		"DelHashAll",
-	}
-	myscript.DelHashAll(keys, args)
-
-	logtool.LogDebug("DelHashAll")
+	logtool.LogDebug("ValueDel")
 }

@@ -14,16 +14,16 @@ func (s *MyScriptor) GetValue(keys, args []string) (int64, error) {
 	}
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.CountDown, err = reader.ReadInt64(0)
+	result.ValueInt64, err = reader.ReadInt64(0)
 	if err != nil {
 		logtool.LogError("GetValue Value Error", err)
 		return 0, err
 	}
 
-	return result.CountDown, nil
+	return result.ValueInt64, nil
 }
 
-// GetValue - 寫入一個字串
+// GetValue - 取得數字
 const (
 	GetValueID       = "GetValue"
 	GetValueTemplate = `
