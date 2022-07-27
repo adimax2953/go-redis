@@ -45,8 +45,8 @@ const (
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
-			local r1= "-1"
-			redis.call('hset',MAIN_KEY , k2 ,v1)
+			local r1= ""
+				redis.call('hset',MAIN_KEY , k2 ,v1)
 			r1 = redis.call('hget',MAIN_KEY , k2)
 			return { r1 }
 		end

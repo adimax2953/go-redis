@@ -58,14 +58,15 @@ const (
 			return  {err="invalid argument 'v1'", sender=sender}
 		end
 		if DBKey and ProjectKey and TagKey and k1 and k2 and v1 then
-		local MAIN_KEY = ProjectKey.":"..TagKey..":"..k1
 
+			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 			redis.call("select",DBKey)
 			local result ={}
-			redis.call('hinrby',MAIN_KEY,k2,v1)
-			reult = redis.call('hget',MAIN_KEY,k2)
-			reis.call("hset",MAIN_KEY,"lastUpdateTime",redi.call("TIE")[1])
-		return {result}
+			redis.call('hincrby',MAIN_KEY,k2,v1)
+			result = redis.call('hget',MAIN_KEY,k2)
+
+			redis.call("hset",MAIN_KEY,"lastUpdateTime",redis.call("TIE")[1])
+			return {result}
 		end
     `
 )
