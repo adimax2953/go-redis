@@ -40,7 +40,6 @@ const (
 		local v1                                            = tonumber(ARGV[3])
 		local sender                                        = "DecValue.lua"
 		
-		local result ="-1"
 		if DBKey and ProjectKey and TagKey and k1 and k2 and v1 then
 		
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
@@ -48,7 +47,8 @@ const (
 			redis.call("select",DBKey)
 			local tmp = redis.call('hget',MAIN_KEY,k2)
 			local v2 =tonumber(tmp)
-			if v1 >= v2 then
+			local result = {-1}
+			if v1 <= v2 then
 				redis.call('hset',MAIN_KEY,k2,v2 - v1)
 				result = redis.call('hget',MAIN_KEY,k2)
 			end
