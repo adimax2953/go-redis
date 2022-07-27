@@ -39,7 +39,11 @@ const (
 		local k2                                            = ARGV[2]
 		local v1                                            = tonumber(ARGV[3])
 		local sender                                        = "DecValue.lua"
-		
+		---@return number 
+		local function getTime()
+			return redis.call("TIME")[1]
+		end
+
 		if DBKey and ProjectKey and TagKey and k1 and k2 and v1 then
 		
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
@@ -51,7 +55,7 @@ const (
 			if v1 <= v2 then
 				redis.call('hset',MAIN_KEY,k2,v2 - v1)
 				result = redis.call('hget',MAIN_KEY,k2)
-				redis.call("hset",MAIN_KEY,"lastUpdateTime",redis.call("TIE")[1])
+				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			end
 
 			return {result}

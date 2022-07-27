@@ -42,12 +42,12 @@ func Test_goredis_Script(t *testing.T) {
 	// string_update_ttl_TestCase(scriptor, assert)
 
 	//Hash test
-	hash_new_TestCase(scriptor, assert)
-	hash_update_TestCase(scriptor, assert)
-	hash_get_TestCase(scriptor, assert)
-	hash_get_all_TestCase(scriptor, assert)
-	hash_del_TestCase(scriptor, assert)
-	hash_del_all_TestCase(scriptor, assert)
+	// hash_new_TestCase(scriptor, assert)
+	// hash_update_TestCase(scriptor, assert)
+	// hash_get_TestCase(scriptor, assert)
+	// hash_get_all_TestCase(scriptor, assert)
+	// hash_del_TestCase(scriptor, assert)
+	// hash_del_all_TestCase(scriptor, assert)
 
 	//list test
 	// list_new_TestCase(scriptor, assert)
@@ -77,11 +77,11 @@ func Test_goredis_Script(t *testing.T) {
 	// zset_del_all_TestCase(scriptor, assert)
 
 	//value test
-	// value_inc_TestCase(scriptor, assert)
-	// value_dec_TestCase(scriptor, assert)
-	// value_get_TestCase(scriptor, assert)
-	// value_get_all_TestCase(scriptor, assert)
-	// value_del_TestCase(scriptor, assert)
+	value_inc_TestCase(scriptor, assert)
+	value_dec_TestCase(scriptor, assert)
+	value_get_TestCase(scriptor, assert)
+	value_get_all_TestCase(scriptor, assert)
+	value_del_TestCase(scriptor, assert)
 }
 
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {

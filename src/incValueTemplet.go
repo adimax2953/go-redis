@@ -57,6 +57,12 @@ const (
 		if not v1 or v1=="" then
 			return  {err="invalid argument 'v1'", sender=sender}
 		end
+		
+		---@return number 
+		local function getTime()
+			return redis.call("TIME")[1]
+		end
+
 		if DBKey and ProjectKey and TagKey and k1 and k2 and v1 then
 
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
@@ -65,7 +71,7 @@ const (
 			redis.call('hincrby',MAIN_KEY,k2,v1)
 			result = redis.call('hget',MAIN_KEY,k2)
 
-			redis.call("hset",MAIN_KEY,"lastUpdateTime",redis.call("TIE")[1])
+			redis.call('hset',MAIN_KEY, 'lastUpdateTime', getTime())
 			return {result}
 		end
     `
