@@ -51,6 +51,7 @@ const (
 			if v1 <= v2 then
 				redis.call('hset',MAIN_KEY,k2,v2 - v1)
 				result = redis.call('hget',MAIN_KEY,k2)
+				reis.call("hset",MAIN_KEY,"lastUpdateTime",redi.call("TIE")[1])
 			end
 			return {result}
 		end
