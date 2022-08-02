@@ -6,21 +6,27 @@ import (
 )
 
 // UpdateHashList function - keys, args[] string - return string , error
-func (s *MyScriptor) UpdateHashList(keys, args []string) (string, error) {
+func (s *MyScriptor) UpdateHashList(keys, args []string) (*[]RedisResult, error) {
 	res, err := s.Scriptor.ExecSha(UpdateHashListID, keys, args)
 	if err != nil {
 		logtool.LogError("UpdateHashList ExecSha Error", err)
-		return "", err
+		return nil, err
 	}
-	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	result.Value = reader.ReadString()
-	if err != nil {
-		logtool.LogError("UpdateHashList Value Error", err)
-		return "", err
+	count := len(res.([]interface{})) / 2
+	result := make([]RedisResult, count)
+
+	for i := 0; i < count; i++ {
+		r := &RedisResult{}
+		r.Key = reader.ReadString()
+		r.Value = reader.ReadString()
+		result[i] = *r
+		if err != nil {
+			logtool.LogError("UpdateHashList Value Error", err)
+		}
 	}
 
-	return result.Value, nil
+	return &result, nil
 }
 
 // UpdateHashList - 減少數值
@@ -39,7 +45,6 @@ const (
 		local k2                                            = ARGV[2]
 		local v1                                            = ARGV[3]
 		local sender                                        = "UpdateHashList.lua"
-
 		
 		---@param str string
 		---@param separator string
@@ -52,28 +57,24 @@ const (
 			return t
 		end
 
-
 		if DBKey and ProjectKey and TagKey and k1 and k2 and v1 then
-
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 			local keyparts = split(k2, "~")
 			local valueparts = split(v1, "~")
 			
 		
 			redis.call("select",DBKey)
-			local r1 = ""
 			local count = #valueparts
 			for i = 1 , count do
 				redis.call('hset',MAIN_KEY , keyparts[i] ,valueparts[i])
 			end
 
-			r1 = redis.call('hgetall',MAIN_KEY)
-			return { r1 }
+			local r1 = ""
+			local Tmp = redis.call('hgetall',MAIN_KEY )
+			if Tmp~=nil and Tmp~="" and Tmp~=false then
+				r1 = Tmp
+			end
+			return r1 
 		end
-
-
-
-
-
     `
 )

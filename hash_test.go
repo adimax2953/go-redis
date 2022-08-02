@@ -86,7 +86,7 @@ func hash_update_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assert
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("UpdateHashList", res)
+	logtool.LogDebug("UpdateHashList", *res)
 }
 func hash_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
