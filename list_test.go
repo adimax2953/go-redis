@@ -12,7 +12,7 @@ func list_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -63,7 +63,7 @@ func list_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -103,7 +103,7 @@ func list_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -142,7 +142,7 @@ func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -191,7 +191,7 @@ func list_get_length_TestCase(scriptor *goredis.Scriptor, assert *assert.Asserti
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -229,7 +229,7 @@ func list_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -266,7 +266,7 @@ func list_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -304,7 +304,7 @@ func list_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,

@@ -42,7 +42,7 @@ func goredis_NewDB(host string, port int, scr map[string]string) (*goredis.Scrip
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
@@ -63,7 +63,7 @@ func goredis_New(host string, port int, scr map[string]string, assert *assert.As
 
 	opt := &goredis.Option{
 		Host:     "192.168.56.1",
-		Port:     16379,
+		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
