@@ -11,7 +11,7 @@ import (
 func string_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -51,7 +51,7 @@ func string_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 func string_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -90,7 +90,7 @@ func string_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func string_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -128,7 +128,7 @@ func string_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 func string_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -166,7 +166,7 @@ func string_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 func string_update_ttl_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,

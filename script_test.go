@@ -88,7 +88,7 @@ func Test_goredis_Script(t *testing.T) {
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,

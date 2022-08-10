@@ -11,7 +11,7 @@ import (
 func set_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -51,7 +51,7 @@ func set_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func set_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -91,7 +91,7 @@ func set_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 func set_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -130,7 +130,7 @@ func set_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func set_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -167,7 +167,7 @@ func set_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 func set_get_random_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -205,7 +205,7 @@ func set_get_random_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertio
 func set_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -243,7 +243,7 @@ func set_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func set_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,

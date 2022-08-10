@@ -13,7 +13,7 @@ import (
 func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -50,7 +50,7 @@ func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -87,7 +87,7 @@ func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -126,7 +126,7 @@ func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -162,7 +162,7 @@ func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -200,7 +200,7 @@ func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func room_left_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,

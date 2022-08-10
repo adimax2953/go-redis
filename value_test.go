@@ -11,7 +11,7 @@ import (
 func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -52,7 +52,7 @@ func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -92,7 +92,7 @@ func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -130,7 +130,7 @@ func value_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
@@ -168,7 +168,7 @@ func value_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func value_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.56.1",
+		Host:     "192.168.10.183",
 		Port:     6379,
 		Password: "",
 		DB:       1,
