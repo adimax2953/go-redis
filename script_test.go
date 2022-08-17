@@ -25,6 +25,7 @@ func Test_goredis_Script(t *testing.T) {
 	scriptor, err = goredis_NewDB(s.Host(), s.Server().Addr().Port, nil)
 	assert.Nil(err)
 	//script_TestCase(scriptor, assert)
+	Inc_Base62_TestCase(scriptor, assert)
 
 	// room test
 	// room_join_TestCase(scriptor, assert)
@@ -48,7 +49,7 @@ func Test_goredis_Script(t *testing.T) {
 	// hash_get_all_TestCase(scriptor, assert)
 	// hash_del_TestCase(scriptor, assert)
 	// hash_del_all_TestCase(scriptor, assert)
-	hash_update_list_TestCase(scriptor, assert)
+	//hash_update_list_TestCase(scriptor, assert)
 
 	//list test
 	// list_new_TestCase(scriptor, assert)

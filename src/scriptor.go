@@ -76,4 +76,5 @@ var LuaScripts = map[string]string{
 	GetUUIDID:   GetUUIDTemplate,
 	TTLKeyID:    TTLKeyTemplate,
 	ExpireKEYID: ExpireKEYTemplate,
+	IncBase62ID: IncBase62Template,
 }
