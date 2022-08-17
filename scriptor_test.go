@@ -3,7 +3,7 @@ package goredis_test
 import (
 	"testing"
 
-	. "github.com/adimax2953/go-redis/Src"
+	. "github.com/adimax2953/go-redis/src"
 
 	goredis "github.com/adimax2953/go-redis"
 	"github.com/stretchr/testify/assert"

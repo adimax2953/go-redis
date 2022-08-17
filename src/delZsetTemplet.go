@@ -1,4 +1,4 @@
-package Src
+package src
 
 // DelZset function - keys, args[] string
 func (s *MyScriptor) DelZset(keys, args []string) {

@@ -1,4 +1,4 @@
-package Src
+package src
 
 import (
 	logtool "github.com/adimax2953/log-tool"

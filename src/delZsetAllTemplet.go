@@ -1,4 +1,4 @@
-package Src
+package src
 
 // DelZsetAll function - keys, args[] string
 func (s *MyScriptor) DelZsetAll(keys, args []string) {

@@ -1,10 +1,9 @@
-package Src
+package src
 
 import (
 	goredis "github.com/adimax2953/go-redis"
 	logtool "github.com/adimax2953/log-tool"
 )
-
 
 // NewString function - keys, args[] string - return string , error
 func (s *MyScriptor) NewString(keys, args []string) (string, error) {

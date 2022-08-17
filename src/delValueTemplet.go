@@ -1,4 +1,4 @@
-package Src
+package src
 
 // DelValue function - keys, args[] string
 func (s *MyScriptor) DelValue(keys, args []string) {

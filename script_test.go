@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	goredis "github.com/adimax2953/go-redis"
-	Src "github.com/adimax2953/go-redis/Src"
+	Src "github.com/adimax2953/go-redis/src"
 	logtool "github.com/adimax2953/log-tool"
 )
 

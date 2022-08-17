@@ -1,4 +1,4 @@
-package Src
+package src
 
 // DelSet function - keys, args[] string
 func (s *MyScriptor) DelSet(keys, args []string) {
