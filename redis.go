@@ -19,9 +19,10 @@ type Option struct {
 // Create - create a new redis descriptor
 func (opt *Option) Create() *redis.Client {
 	return redis.NewClient(&redis.Options{
-		Addr:     opt.Host + ":" + strconv.Itoa(opt.Port),
-		Password: opt.Password,
-		DB:       opt.DB,
-		PoolSize: opt.PoolSize,
+		Addr:        opt.Host + ":" + strconv.Itoa(opt.Port),
+		Password:    opt.Password,
+		DB:          opt.DB,
+		PoolSize:    opt.PoolSize,
+		ReadTimeout: -1,
 	})
 }
