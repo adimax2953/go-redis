@@ -39,7 +39,7 @@ func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	args := []string{
 		"valuetest",
 		"Value",
-		"500",
+		"50",
 	}
 	res, err := myscript.IncValue(keys, args)
 	if err != nil {
@@ -49,6 +49,45 @@ func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 }
 
+func value_dec_nag_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "192.168.10.183",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "TGaming|0.0.1"
+		dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"valuetest",
+		"Value",
+		"100",
+	}
+	res, err := myscript.DecNegativeValue(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("DecNegativeValue", res)
+}
 func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{

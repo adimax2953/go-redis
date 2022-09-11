@@ -98,9 +98,7 @@ const (
 				s = v1
 			end
 
-
 			result = Base62Inc(s)
-
 
 			redis.call('hset',MAIN_KEY, k2, result)
 			return {result}
