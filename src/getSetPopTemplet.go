@@ -6,26 +6,21 @@ import (
 )
 
 // GetSetPop function - keys, args[subkey,request datacount] string - return *[]RedisResult , error
-func (s *MyScriptor) GetSetPop(keys, args []string) (*[]RedisResult, error) {
+func (s *MyScriptor) GetSetPop(keys, args []string) (string, error) {
 	res, err := s.Scriptor.ExecSha(GetSetPopID, keys, args)
 	if err != nil {
 		logtool.LogError("GetSetPop ExecSha Error", err)
-		return nil, err
+		return "", err
 	}
+	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-
-	count := len(res.([]interface{}))
-	result := make([]RedisResult, count)
-
-	for i := 0; i < count; i++ {
-		r := &RedisResult{}
-		r.Value = reader.ReadString()
-		result[i] = *r
-		if err != nil {
-			logtool.LogError("GetSetPop Value Error", err)
-		}
+	result.Value = reader.ReadString()
+	if err != nil {
+		logtool.LogError("GetSet Value Error", err)
+		return "", err
 	}
-	return &result, nil
+
+	return result.Value, nil
 }
 
 // GetSetPop - 減少數值
