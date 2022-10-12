@@ -5,11 +5,11 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// GetSetRandom function - keys, args[subkey,request datacount] string - return *[]RedisResult , error
-func (s *MyScriptor) GetSetRandom(keys, args []string) (*[]RedisResult, error) {
-	res, err := s.Scriptor.ExecSha(GetSetRandomID, keys, args)
+// GetSetPop function - keys, args[subkey,request datacount] string - return *[]RedisResult , error
+func (s *MyScriptor) GetSetPop(keys, args []string) (*[]RedisResult, error) {
+	res, err := s.Scriptor.ExecSha(GetSetPopID, keys, args)
 	if err != nil {
-		logtool.LogError("GetSetRandom ExecSha Error", err)
+		logtool.LogError("GetSetPop ExecSha Error", err)
 		return nil, err
 	}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
@@ -22,34 +22,33 @@ func (s *MyScriptor) GetSetRandom(keys, args []string) (*[]RedisResult, error) {
 		r.Value = reader.ReadString()
 		result[i] = *r
 		if err != nil {
-			logtool.LogError("GetSetRandom Value Error", err)
+			logtool.LogError("GetSetPop Value Error", err)
 		}
 	}
 	return &result, nil
 }
 
-// GetSetRandom - 減少數值
+// GetSetPop - 減少數值
 const (
-	GetSetRandomID       = "GetSetRandom"
-	GetSetRandomTemplate = `
+	GetSetPopID       = "GetSetPop"
+	GetSetPopTemplate = `
 	--[[
 		Author      :   Adimax.Tsai
-		Description :   GetSetRandom
+		Description :   GetSetPop
 		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} {k2}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
 		local ProjectKey                                    = KEYS[2]
 		local TagKey                                        = KEYS[3]
 		local k1                                            = ARGV[1]
-		local k2                                            = ARGV[2]
-		local sender                                        = "GetSetRandom.lua"
+		local sender                                        = "GetSetPop.lua"
 		
 		if DBKey and ProjectKey and TagKey and k1 and k2 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
-			local tmp = "-1"
-			tmp = redis.call('srandmember',MAIN_KEY , k2)
+			local tmp = ""
+			tmp = redis.call('SPOP',MAIN_KEY)
 			
 			return tmp 
 		end

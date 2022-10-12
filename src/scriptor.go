@@ -62,6 +62,7 @@ var LuaScripts = map[string]string{
 	NewSetID:       NewSetTemplate,
 	GetSetID:       GetSetTemplate,
 	GetSetRandomID: GetSetRandomTemplate,
+	GetSetPopID:    GetSetPopTemplate,
 	GetSetAllID:    GetSetAllTemplate,
 	UpdateSetID:    UpdateSetTemplate,
 	DelSetID:       DelSetTemplate,

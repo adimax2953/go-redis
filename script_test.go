@@ -62,7 +62,7 @@ func Test_goredis_Script(t *testing.T) {
 	// list_del_all_TestCase(scriptor, assert)
 
 	//set test
-	// set_new_TestCase(scriptor, assert)
+	set_new_TestCase(scriptor, assert)
 	// set_update_TestCase(scriptor, assert)
 	// set_get_TestCase(scriptor, assert)
 	// set_get_random_TestCase(scriptor, assert)
@@ -84,7 +84,7 @@ func Test_goredis_Script(t *testing.T) {
 	// value_get_TestCase(scriptor, assert)
 	// value_get_all_TestCase(scriptor, assert)
 	// value_del_TestCase(scriptor, assert)
-	value_dec_nag_TestCase(scriptor, assert)
+	//value_dec_nag_TestCase(scriptor, assert)
 
 }
 
