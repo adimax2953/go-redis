@@ -36,6 +36,7 @@ const (
 		local ProjectKey                                    = KEYS[2]
 		local TagKey                                        = KEYS[3]
 		local k1                                            = ARGV[1]
+		local k2                                            = ARGV[2]
 		local sender                                        = "GetSetPop.lua"
 		
 		if DBKey and ProjectKey and TagKey and k1 and k2 then
@@ -43,7 +44,7 @@ const (
 		
 			redis.call("select",DBKey)
 			local tmp = ""
-			tmp = redis.call('SPOP',MAIN_KEY)
+			tmp = redis.call('SPOP', MAIN_KEY , k2)
 			
 			return tmp 
 		end
