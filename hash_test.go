@@ -279,3 +279,38 @@ func hash_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 
 	logtool.LogDebug("DelHashAll")
 }
+
+func hash_get_normal_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "192.168.10.182",
+		Port:     6379,
+		Password: "Taijc@888",
+		DB:       11,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "TGaming|0.0.1"
+		dbKey            = "4"
+		keys             = []string{
+			dbKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 11, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"TG:playerToRoom",
+		"test1",
+	}
+	res, err := myscript.GetHashNormal(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("GetHashNormal", res)
+}

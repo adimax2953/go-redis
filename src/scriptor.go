@@ -49,6 +49,7 @@ var LuaScripts = map[string]string{
 	DelHashID:        DelHashTemplate,
 	DelHashAllID:     DelHashAllTemplate,
 	UpdateHashListID: UpdateHashListTemplate,
+	GetHashNormalID:  GetHashNormalTemplate,
 	//List
 	NewListID:       NewListTemplate,
 	GetListID:       GetListTemplate,
