@@ -180,7 +180,7 @@ const (
 	
 	
 	redis.call("HDEL", makeKey({"playerToRoom"}), playerId)
-	redis.call("HDEL",  gameId..":"..playerToRoom", playerId)
+	redis.call("HDEL",  gameId..":".."playerToRoom", playerId)
 
 	return result
     `
