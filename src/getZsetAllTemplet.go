@@ -20,7 +20,7 @@ func (s *MyScriptor) GetZsetAll(keys, args []string) (*[]RedisResult, error) {
 	for i := 0; i < count; i++ {
 		r := &RedisResult{}
 		r.Value = reader.ReadString()
-		r.Value2 = reader.ReadString()
+		// r.Value2 = reader.ReadString()
 		result[i] = *r
 		if err != nil {
 			logtool.LogError("GetZsetAll Value Error", err)
@@ -43,6 +43,8 @@ const (
 		local ProjectKey                                    = KEYS[2]
 		local TagKey                                        = KEYS[3]
 		local k1                                            = ARGV[1]
+		local k2                                            = tonumber(ARGV[2])
+		local k3                                            = tonumber(ARGV[3])
 		local sender                                        = "GetZsetAll.lua"
 		
 		if DBKey and ProjectKey and TagKey and k1 then
@@ -50,9 +52,9 @@ const (
 		
 			redis.call("select",DBKey)
 			
-			local tmp = redis.call('zrange',MAIN_KEY ,0 , -1)
+			local tmp = redis.call('zrange',MAIN_KEY , k2, k3)
 		
 			return tmp
 		end
-    `
+	`
 )
