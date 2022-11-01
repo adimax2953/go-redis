@@ -2,8 +2,7 @@ package src
 
 // DelZset function - keys, args[] string
 func (s *MyScriptor) DelZset(keys, args []string) {
-
-	s.Scriptor.ExecSha(DelValueID, keys, args)
+	s.Scriptor.ExecSha(DelZsetID, keys, args)
 }
 
 // DelZset - 寫入一個數字
@@ -24,7 +23,7 @@ const (
 		
 		if DBKey and ProjectKey and TagKey and k1 and v2 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
-		
+
 			redis.call("select",DBKey)
 		
 			redis.call('zrem',MAIN_KEY,v2)
