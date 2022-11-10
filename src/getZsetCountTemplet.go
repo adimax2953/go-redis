@@ -5,38 +5,30 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// GetZsetAll function - keys, args[] string - return int64 , error
-func (s *MyScriptor) GetZsetAll(keys, args []string) (*[]RedisResult, error) {
-	res, err := s.Scriptor.ExecSha(GetZsetAllID, keys, args)
+// DelSet function - keys, args[] string
+func (s *MyScriptor) GetZsetCount(keys, args []string) (int64, error) {
+
+	res, err := s.Scriptor.ExecSha(GetZsetCountID, keys, args)
 	if err != nil {
-		logtool.LogError("GetZsetAll ExecSha Error", err)
-		return nil, err
+		logtool.LogError("GetZsetCount ExecSha Error", err)
+		return 0, err
 	}
 
-	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	count := len(res.([]interface{}))
-	result := make([]RedisResult, count)
-
-	for i := 0; i < count; i++ {
-		r := &RedisResult{}
-		r.Value = reader.ReadString()
-		// r.Value2 = reader.ReadString()
-		result[i] = *r
-		if err != nil {
-			logtool.LogError("GetZsetAll Value Error", err)
-		}
+	count, err := goredis.NewRedisReplyValue(res).AsInt64(0)
+	if err != nil {
+		logtool.LogError("GetZsetCount Value Error", err)
+		return 0, err
 	}
-
-	return &result, nil
+	return count, nil
 }
 
 // GetZsetAll - 寫入一個字串
 const (
-	GetZsetAllID       = "GetZsetAll"
-	GetZsetAllTemplate = `
+	GetZsetCountID       = "GetZsetCount"
+	GetZsetCountTemplate = `
 	--[[
 		Author      :   Adimax.Tsai
-		Description :   GetZsetAll
+		Description :   GetZsetCount
 		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
@@ -45,14 +37,14 @@ const (
 		local k1                                            = ARGV[1]
 		local k2                                            = tonumber(ARGV[2])
 		local k3                                            = tonumber(ARGV[3])
-		local sender                                        = "GetZsetAll.lua"
+		local sender                                        = "GetZsetCount.lua"
 		
 		if DBKey and ProjectKey and TagKey and k1 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
 			
-			local tmp = redis.call('zrange',MAIN_KEY , k2, k3)
+			local tmp = redis.call('zcount',MAIN_KEY , k2, k3)
 		
 			return tmp
 		end
