@@ -246,7 +246,7 @@ const (
 		)
 	
 		redis.call("HSET", makeKey({"playerToRoom"}), playerId, table.concat({playerType, seatId, room.roomId}, ":"))
-		redis.call("HSET",  gameId..":".."playerToRoom", playerId,table.concat({playerType, seatId, room.roomId}, ":"))
+		redis.call("HSET",  platformId..":"..gameId..":".."playerToRoom", playerId,table.concat({playerType, seatId, room.roomId}, ":"))
 
 		return room, seatId
 	end
