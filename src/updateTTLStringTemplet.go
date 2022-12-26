@@ -38,18 +38,17 @@ const (
 		local TagKey                                        = KEYS[3]
 		local k1                                            = ARGV[1]
 		local v1                                            = ARGV[2]
-		local v2                                            = tonumber(ARGV[3])
 		local sender                                        = "UpdateTTLString.lua"
 		
 		if DBKey and ProjectKey and TagKey and k1 and v1 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
-
 		
-			redis.call("select", DBKey)
+		
+			redis.call("select",DBKey)
 			local r1= ""
 				redis.call('MSET',MAIN_KEY , v1)
 		
-			redis.call('EXPIRE', MAIN_KEY , v2 )
+			redis.call('EXPIRE', MAIN_KEY , 10 )
 				r1 = redis.call('MGET',MAIN_KEY)
 			return { r1 }
 		end
