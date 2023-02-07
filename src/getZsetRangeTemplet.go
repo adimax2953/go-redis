@@ -9,7 +9,7 @@ import (
 func (s *MyScriptor) GetZsetRange(keys, args []string) (int64, error) {
 	res, err := s.Scriptor.ExecSha(GetZsetRangeID, keys, args)
 	if err != nil {
-		logtool.LogError("GetZsetRank ExecSha Error", err)
+		logtool.LogError("GetZsetRange ExecSha Error", err)
 		return -1, err
 	}
 

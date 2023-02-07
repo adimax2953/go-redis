@@ -78,6 +78,7 @@ var LuaScripts = map[string]string{
 	GetZsetRankID:     GetZsetRankTemplate,
 	GetZsetCountID:    GetZsetCountTemplate,
 	GetZsetAllCountID: GetZsetAllCountTemplate,
+	GetZsetRangeID:GetZsetRangeTemplate,
 	UpdateZsetID:      UpdateZsetTemplate,
 	DelZsetID:         DelZsetTemplate,
 	DelZsetAllID:      DelZsetAllTemplate,
