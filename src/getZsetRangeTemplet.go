@@ -20,7 +20,10 @@ func (s *MyScriptor) GetZsetRange(keys, args []string) (*[]RedisResult, error) {
 	for i := 0; i < count; i++ {
 		r := &RedisResult{}
 		r.Value = reader.ReadString()
-		// r.Value2 = reader.ReadString()
+		r.ValueInt64, err = reader.ReadInt64(0)
+		if err != nil {
+			logtool.LogError("GetZsetRange Error", err.Error())
+		}
 		result[i] = *r
 		if err != nil {
 			logtool.LogError("GetZsetRange Value Error", err)
