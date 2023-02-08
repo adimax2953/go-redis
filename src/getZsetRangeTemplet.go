@@ -14,7 +14,7 @@ func (s *MyScriptor) GetZsetRange(keys, args []string) (*[]RedisResult, error) {
 	}
 
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
-	count := len(res.([]interface{}))
+	count := len(res.([]interface{}))/ 2
 	result := make([]RedisResult, count)
 
 	for i := 0; i < count; i++ {
