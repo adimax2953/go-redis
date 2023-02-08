@@ -6,7 +6,7 @@ import (
 )
 
 // GetZsetRange function - keys, args[] string - return RedisResult , error
-func (s *MyScriptor) GetZsetRange(keys, args []string) ([]RedisResult, error) {
+func (s *MyScriptor) GetZsetRange(keys, args []string) (*[]RedisResult, error) {
 	res, err := s.Scriptor.ExecSha(GetZsetRangeID, keys, args)
 	if err != nil {
 		logtool.LogError("GetZsetRange ExecSha Error", err)
@@ -27,7 +27,7 @@ func (s *MyScriptor) GetZsetRange(keys, args []string) ([]RedisResult, error) {
 		}
 	}
 
-	return result, nil
+	return &result, nil
 }
 
 // GetZsetRange - 寫入一個字串
