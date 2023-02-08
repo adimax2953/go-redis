@@ -5,12 +5,12 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// GetZsetRange function - keys, args[] string - return int64 , error
-func (s *MyScriptor) GetZsetRange(keys, args []string) (int64, error) {
+// GetZsetRange function - keys, args[] string - return RedisResult , error
+func (s *MyScriptor) GetZsetRange(keys, args []string) (*[]RedisResult, error) {
 	res, err := s.Scriptor.ExecSha(GetZsetRangeID, keys, args)
 	if err != nil {
 		logtool.LogError("GetZsetRange ExecSha Error", err)
-		return -1, err
+		return nil, err
 	}
 
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
@@ -27,7 +27,7 @@ func (s *MyScriptor) GetZsetRange(keys, args []string) (int64, error) {
 		}
 	}
 
-	return rank, nil
+	return result, nil
 }
 
 // GetZsetRange - 寫入一個字串
