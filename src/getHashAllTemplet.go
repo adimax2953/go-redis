@@ -7,6 +7,12 @@ import (
 
 // GetHashAll function - keys, args[] string - return *[]HashResult , error
 func (s *MyScriptor) GetHashAll(keys, args []string) (*[]RedisResult, error) {
+	if s == nil {
+		logtool.LogError("GetHashAll empty s")
+	}
+	if s.Scriptor == nil {
+		logtool.LogError("GetHashAll empty scriptor")
+	}
 	res, err := s.Scriptor.ExecSha(GetHashAllID, keys, args)
 	if err != nil {
 		logtool.LogError("GetHashAll ExecSha Error", err)
