@@ -3,10 +3,24 @@ package src
 import (
 	goredis "github.com/adimax2953/go-redis"
 	logtool "github.com/adimax2953/log-tool"
+	"runtime/debug"
 )
 
 // GetHashAll function - keys, args[] string - return *[]HashResult , error
 func (s *MyScriptor) GetHashAll(keys, args []string) (*[]RedisResult, error) {
+	defer func() {
+		e := recover()
+		if e != nil {
+			debug.PrintStack()
+			return
+		}
+	}()
+	if s == nil {
+		logtool.LogError("GetHashAll empty s")
+	}
+	if s.Scriptor == nil {
+		logtool.LogError("GetHashAll empty scriptor")
+	}
 	res, err := s.Scriptor.ExecSha(GetHashAllID, keys, args)
 	if err != nil {
 		logtool.LogError("GetHashAll ExecSha Error", err)
