@@ -49,8 +49,9 @@ func Test_goredis_Script(t *testing.T) {
 	// hash_get_all_TestCase(scriptor, assert)
 	// hash_del_TestCase(scriptor, assert)
 	// hash_del_all_TestCase(scriptor, assert)
-	//hash_update_list_TestCase(scriptor, assert)
-	hash_get_normal_TestCase(scriptor, assert)
+	// hash_update_list_TestCase(scriptor, assert)
+	// hash_get_normal_TestCase(scriptor, assert)
+	hash_update_map_TestCase(scriptor, assert)
 
 	//list test
 	// list_new_TestCase(scriptor, assert)
@@ -92,14 +93,14 @@ func Test_goredis_Script(t *testing.T) {
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"

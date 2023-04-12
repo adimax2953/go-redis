@@ -13,14 +13,14 @@ import (
 func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -50,14 +50,14 @@ func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -87,14 +87,14 @@ func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -126,14 +126,14 @@ func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -162,14 +162,14 @@ func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -200,14 +200,14 @@ func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func room_left_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"

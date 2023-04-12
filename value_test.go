@@ -11,14 +11,14 @@ import (
 func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -52,14 +52,14 @@ func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_dec_nag_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -91,14 +91,14 @@ func value_dec_nag_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -131,14 +131,14 @@ func value_dec_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -169,14 +169,14 @@ func value_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func value_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -207,14 +207,14 @@ func value_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 func value_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"

@@ -11,14 +11,14 @@ import (
 func hash_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -49,18 +49,80 @@ func hash_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 }
 
+func hash_update_map_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6378,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "14"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+			"mainkey",
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+
+	type Setting struct {
+		HttpAddr    string `redis:"httpaddr"`
+		WsAddr      string `redis:"wsaddr"`
+		WsPath      string `redis:"wspath"`
+		SwaggerAddr string `redis:"swaggeraddr"`
+	}
+
+	args := Setting{
+		HttpAddr:    "8.133.56.1",
+		WsAddr:      "8.133.56.2",
+		WsPath:      "/game",
+		SwaggerAddr: "8.133.56.3",
+	}
+
+	res, err := myscript.UpdateHashBatch(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("UpdateHashBatch", *res)
+
+	argsmap := make(map[string]interface{})
+	argsmap["test1"] = "123213"
+	argsmap["test2"] = "gooooooo13"
+	argsmap["test3"] = "阿哩"
+
+	res, err = myscript.UpdateHashBatch(keys, argsmap)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("UpdateHashBatch", *res)
+
+}
 func hash_update_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
-		dbKey            = "2"
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "14"
 		projectKey       = "minigame1"
 		tagKey           = "game"
 		keys             = []string{
@@ -91,14 +153,14 @@ func hash_update_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assert
 func hash_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -131,14 +193,14 @@ func hash_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 func hash_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -169,14 +231,14 @@ func hash_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func hash_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -207,14 +269,14 @@ func hash_get_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 func hash_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -245,14 +307,14 @@ func hash_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func hash_del_all_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "192.168.10.183",
+		Host:     "103.103.81.12",
 		Port:     6379,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "2"
 		projectKey       = "minigame1"
 		tagKey           = "game"
@@ -290,7 +352,7 @@ func hash_get_normal_TestCase(scriptor *goredis.Scriptor, assert *assert.Asserti
 		PoolSize: 3,
 	}
 	var (
-		scriptDefinition = "TGaming|0.0.1"
+		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "4"
 		keys             = []string{
 			dbKey,
