@@ -125,7 +125,7 @@ func appendArg(dst []interface{}, arg interface{}) []interface{} {
 	}
 }
 
-// appendStructField appends the field and value held by the structure v to dst, and returns the appended dst.
+// appendStructField 將結構體 v 持有的字段和值附加到 dst，並返回附加的 dst。
 func appendStructField(dst []interface{}, v reflect.Value) []interface{} {
 	typ := v.Type()
 	for i := 0; i < typ.NumField(); i++ {
@@ -139,8 +139,7 @@ func appendStructField(dst []interface{}, v reflect.Value) []interface{} {
 		}
 
 		field := v.Field(i)
-
-		// miss field
+		// 缺失字段
 		if omitEmpty(opt) && isEmptyValue(field) {
 			continue
 		}

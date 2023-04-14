@@ -100,7 +100,7 @@ func hash_update_map_TestCase(scriptor *goredis.Scriptor, assert *assert.Asserti
 	logtool.LogDebug("UpdateHashBatch", *res)
 
 	argsmap := make(map[string]interface{})
-	argsmap["test1"] = "123213"
+	argsmap["test1"] = 1232133
 	argsmap["test2"] = "gooooooo13"
 	argsmap["test3"] = "阿哩"
 
