@@ -31,6 +31,8 @@ var LuaScripts = map[string]string{
 	DelValueID:         DelValueTemplate,
 	TakeValueID:        TakeValueTemplate,
 	DecNegativeValueID: DecNegativeValueTemplate,
+	IncValueBatchID:    IncValueBatchTemplate,
+	DecValueBatchID:    DecValueBatchTemplate,
 	//CountDown
 	IncCountDownID: IncCountDownTemplate,
 	GetCountDownID: GetCountDownTemplate,
