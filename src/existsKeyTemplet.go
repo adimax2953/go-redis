@@ -1,6 +1,8 @@
 package src
 
 import (
+	"strconv"
+
 	goredis "github.com/adimax2953/go-redis"
 	logtool "github.com/adimax2953/log-tool"
 )
@@ -15,11 +17,12 @@ func (s *MyScriptor) ExistsKEY(keys, args []string) (bool, error) {
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
-	if result.Value != "1" {
-		return false, nil
+	if result.Value == "" {
+		logtool.LogError("ExistsKEY Value Error", err)
+		return false, err
 	}
-
-	return true, nil
+	v, err := strconv.ParseBool(result.Value)
+	return v, err
 }
 
 // ExistsKEY - 檢查key存在否
