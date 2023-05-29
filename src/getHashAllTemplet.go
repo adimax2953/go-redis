@@ -1,9 +1,10 @@
 package src
 
 import (
+	"runtime/debug"
+
 	goredis "github.com/adimax2953/go-redis"
 	logtool "github.com/adimax2953/log-tool"
-	"runtime/debug"
 )
 
 // GetHashAll function - keys, args[] string - return *[]HashResult , error

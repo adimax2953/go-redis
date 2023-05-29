@@ -90,4 +90,5 @@ var LuaScripts = map[string]string{
 	TTLKeyID:    TTLKeyTemplate,
 	ExpireKEYID: ExpireKEYTemplate,
 	IncBase62ID: IncBase62Template,
+	ExistsKEYID: ExistsKEYTemplate,
 }
