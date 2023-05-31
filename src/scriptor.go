@@ -91,4 +91,5 @@ var LuaScripts = map[string]string{
 	ExpireKEYID: ExpireKEYTemplate,
 	IncBase62ID: IncBase62Template,
 	ExistsKEYID: ExistsKEYTemplate,
+	FlushDBID:   FlushDBTemplate,
 }

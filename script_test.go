@@ -90,7 +90,8 @@ func Test_goredis_Script(t *testing.T) {
 	//value_inc_map_TestCase(scriptor, assert)
 	//value_dec_map_TestCase(scriptor, assert)
 
-	Exist_Key_TestCase(scriptor, assert)
+	//Exist_Key_TestCase(scriptor, assert)
+	Flush_DB_TestCase(scriptor, assert)
 
 }
 
