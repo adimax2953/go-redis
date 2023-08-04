@@ -24,6 +24,49 @@ type Scriptor struct {
 	CTX                   context.Context
 }
 
+// FastInit - create a new Scriptor with a new redis client
+func FastInit(host string, port int, Password string, db int, poolSize int, scriptDB int, redisScriptDefinition string, scripts *map[string]string) (*Scriptor, error) {
+	opt := &Option{
+		Host:     host,
+		Port:     port,
+		Password: Password,
+		DB:       db,
+		PoolSize: poolSize,
+	}
+
+	// new scriptor
+	s := &Scriptor{}
+	s.sRedisClientSyncOnce.Do(func() {
+		s.Client = opt.Create()
+		s.scripts = make(map[string]string)
+		s.redisScriptDB = scriptDB
+
+		// if redisScriptDefinition is not empty, use the default
+		if redisScriptDefinition != "" {
+			s.redisScriptDefinition = redisScriptDefinition
+		} else {
+			s.redisScriptDefinition = scriptDefinition
+		}
+	})
+
+	s.CTX = context.Background()
+
+	// ping the redis server
+	_, err := s.Client.Ping(s.CTX).Result()
+	if err != nil {
+		return nil, err
+	}
+
+	// load all scripts or register scripts
+	scriptDescriptor, err := NewScriptDescriptor(s.CTX, s.Client, scripts, s.redisScriptDefinition, s.redisScriptDB)
+	if err != nil {
+		return nil, err
+	}
+	s.scripts = scriptDescriptor.contrainer
+
+	return s, nil
+}
+
 // New - create a new scriptor with the redis client
 func New(client *redis.Client, scriptDB int, redisScriptDefinition string, scripts *map[string]string) (*Scriptor, error) {
 	if client == nil {
