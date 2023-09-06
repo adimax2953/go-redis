@@ -114,8 +114,8 @@ func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		Scriptor: scriptor,
 	}
 
-	for i := 0; i < 10; i++ {
-		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 20, 20, "220719", false, "")
+	for i := 0; i < 1; i++ {
+		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 1, 20, "220719", false, "")
 		if err != nil {
 			logtool.LogFatal(err.Error())
 		}
@@ -189,7 +189,7 @@ func room_join_bot_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 	}
 
 	for i := 10; i < 20; i++ {
-		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 1, 20, "220719", true, "220719000000000"+strconv.Itoa(i-9))
+		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 1, 20, "220719", true, "2207190000000001" /*+strconv.Itoa(i-9)*/)
 		if err != nil {
 			logtool.LogFatal(err.Error())
 		}

@@ -28,9 +28,9 @@ func Test_goredis_Script(t *testing.T) {
 	//Inc_Base62_TestCase(scriptor, assert)
 
 	// room test
-	// room_join_TestCase(scriptor, assert)
-	// room_left_TestCase(scriptor, assert)
-	// room_join_bot_TestCase(scriptor, assert)
+	//room_join_TestCase(scriptor, assert)
+	room_left_TestCase(scriptor, assert)
+	//room_join_bot_TestCase(scriptor, assert)
 	// room_left_bot_TestCase(scriptor, assert)
 	// room_list_TestCase(scriptor, assert)
 	// room_player_TestCase(scriptor, assert)
@@ -91,7 +91,7 @@ func Test_goredis_Script(t *testing.T) {
 	//value_dec_map_TestCase(scriptor, assert)
 
 	//Exist_Key_TestCase(scriptor, assert)
-	Flush_DB_TestCase(scriptor, assert)
+	//Flush_DB_TestCase(scriptor, assert)
 
 }
 

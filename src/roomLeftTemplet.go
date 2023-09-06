@@ -12,7 +12,6 @@ func (s *MyScriptor) RoomLeft(
 	gameID string,
 	countryCode string,
 	playerID string,
-
 ) (interface{}, error) {
 	args := []string{
 		platformID,
@@ -40,7 +39,7 @@ const (
 	local gameId = ARGV[2]
 	local countrycode = ARGV[3]
 	local playerId = ARGV[4]
-	
+
 	local scope = table.concat({ProjectKey, platformId, gameId, countrycode}, "/")
 	
 	local function log(v)
@@ -95,6 +94,18 @@ const (
 		return list
 	end
 	
+
+	---@param roomId string
+	local function delPlayersInRoom(roomId)
+		local players = hgetall(makeKey({"room", roomId, "playerToSeat"}))
+		local list = {}
+
+		for k, v in pairs(players) do
+			redis.call("HDEL", makeKey({"playerToRoom"}), k)
+			redis.call("HDEL",  platformId..":"..gameId..":".."playerToRoom", k)
+		end
+	end
+
 	---@param roomId string
 	local function deleteRoom(roomId)
 		redis.call(
@@ -111,7 +122,9 @@ const (
 		redis.call("ZREM", makeKey({"rooms"}), roomId)
 		redis.call("ZREM", makeKey({"roomsAvailable"}), roomId)
 		redis.call("DEL", makeKey({"room", roomId, "seatsAvailable"}))
+		delPlayersInRoom(roomId)
 		redis.call("DEL", makeKey({"room", roomId, "playerToSeat"}))
+		
 		redis.call("DEL", makeKey({"room", roomId}))
 	end
 	
@@ -136,6 +149,8 @@ const (
 	
 	local parts = split(roomId, ":")
 	roomId = parts[3]
+	
+	
 	local seatId = redis.call(
 		"HGET", makeKey({"room", roomId, "playerToSeat"}), playerId
 	)
