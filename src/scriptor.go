@@ -18,10 +18,11 @@ type MyScriptor struct {
 
 var LuaScripts = map[string]string{
 	//Room
-	RoomJoinID:   RoomJoinTemplate,
-	RoomLeftID:   RoomLeftTemplate,
-	RoomListID:   RoomListTemplate,
-	RoomPlayerID: RoomPlayerTemplate,
+	RoomJoinID:       RoomJoinTemplate,
+	RoomLeftID:       RoomLeftTemplate,
+	RoomLeftSingleID: RoomLeftSingleTemplate,
+	RoomListID:       RoomListTemplate,
+	RoomPlayerID:     RoomPlayerTemplate,
 	//Value
 	IncValueID:         IncValueTemplate,
 	GetValueID:         GetValueTemplate,

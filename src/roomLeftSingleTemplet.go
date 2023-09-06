@@ -5,8 +5,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-// RoomLeft function - keys, args[] string - return string , error
-func (s *MyScriptor) RoomLeft(
+// RoomLeftSingle function - keys, args[] string - return string , error
+func (s *MyScriptor) RoomLeftSingle(
 	keys []string,
 	platformID string,
 	gameID string,
@@ -19,9 +19,9 @@ func (s *MyScriptor) RoomLeft(
 		countryCode,
 		playerID,
 	}
-	res, err := s.Scriptor.ExecSha(RoomLeftID, keys, args)
+	res, err := s.Scriptor.ExecSha(RoomLeftSingleID, keys, args)
 	if err != nil {
-		logtool.LogError("RoomLeft ExecSha Error", err)
+		logtool.LogError("RoomLeftSingle ExecSha Error", err)
 		return "", errors.WithStack(err)
 	}
 
@@ -30,8 +30,8 @@ func (s *MyScriptor) RoomLeft(
 
 // RoomLeft - 減少數值
 const (
-	RoomLeftID       = "RoomLeft"
-	RoomLeftTemplate = `
+	RoomLeftSingleID       = "RoomLeftSingle"
+	RoomLeftSingleTemplate = `
 	local DBKey                                         = tonumber(KEYS[1])
 	local ProjectKey                                    = KEYS[2]
 	local TagKey                                        = KEYS[3]
@@ -122,7 +122,6 @@ const (
 		redis.call("ZREM", makeKey({"rooms"}), roomId)
 		redis.call("ZREM", makeKey({"roomsAvailable"}), roomId)
 		redis.call("DEL", makeKey({"room", roomId, "seatsAvailable"}))
-		delPlayersInRoom(roomId)
 		redis.call("DEL", makeKey({"room", roomId, "playerToSeat"}))		
 		redis.call("DEL", makeKey({"room", roomId}))
 	end
@@ -148,12 +147,14 @@ const (
 	
 	local parts = split(roomId, ":")
 	roomId = parts[3]
+
+	local isRobot = parts[1]== "B"
 	
 	
 	local seatId = redis.call(
 		"HGET", makeKey({"room", roomId, "playerToSeat"}), playerId
 	)
-
+	
 	if not seatId then
 		error("internal error: cannot find seatId.")
 	end
@@ -164,15 +165,30 @@ const (
 	local currentPlayerCount = redis.call(
 		"HINCRBY", makeKey({"room", roomId}), "currentPlayerCount", -1
 	)
-	
-	local currentBotCount = redis.call(
-		"HGET", makeKey({"room", roomId}), "currentBotCount"
-	)
-	
-	if currentPlayerCount == 0 or (currentPlayerCount - currentBotCount == 0) then
-		deleteRoom(roomId)
+
+	if isRobot then	
+
+		local currentBotCount = redis.call(
+			"HINCRBY", makeKey({"room", roomId}), "currentBotCount", -1
+		)
+		
+		if currentPlayerCount == 0 or (currentPlayerCount - currentBotCount == 0) then
+			deleteRoom(roomId)
+		else
+			redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
+		end
+
 	else
-		redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
+		local currentBotCount = redis.call(
+			"HGET", makeKey({"room", roomId}), "currentBotCount"
+		)
+		
+		if currentPlayerCount == 0 or (currentPlayerCount - currentBotCount == 0) then
+			deleteRoom(roomId)
+		else
+			redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
+		end
+
 	end
 	
 	local players = getPlayersInRoom(roomId)
