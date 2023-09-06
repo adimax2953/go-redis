@@ -148,8 +148,7 @@ const (
 	local parts = split(roomId, ":")
 	roomId = parts[3]
 
-	local isRobot = parts[1]== "B"
-	
+	local isRobot = parts[1]== "B"	
 	
 	local seatId = redis.call(
 		"HGET", makeKey({"room", roomId, "playerToSeat"}), playerId

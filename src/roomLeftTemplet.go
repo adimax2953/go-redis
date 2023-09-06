@@ -148,7 +148,8 @@ const (
 	
 	local parts = split(roomId, ":")
 	roomId = parts[3]
-	
+	local isRobot = parts[1]== "B"
+
 	
 	local seatId = redis.call(
 		"HGET", makeKey({"room", roomId, "playerToSeat"}), playerId
@@ -169,7 +170,7 @@ const (
 		"HGET", makeKey({"room", roomId}), "currentBotCount"
 	)
 	
-	if currentPlayerCount == 0 or (currentPlayerCount - currentBotCount == 0) then
+	if not isRobot or currentPlayerCount == 0 or (currentPlayerCount - currentBotCount == 0) then
 		deleteRoom(roomId)
 	else
 		redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
