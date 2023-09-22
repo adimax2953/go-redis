@@ -5,39 +5,42 @@ import (
 	"github.com/pkg/errors"
 )
 
-// RoomPlayer function - keys, args[] string - return interface{} , error
-func (s *MyScriptor) RoomPlayer(
+// RoomIDPlayer function - keys, args[] string - return interface{} , error
+func (s *MyScriptor) RoomIDPlayer(
 	keys []string,
 	platformID string,
 	gameID string,
 	countryCode string,
+	roomID string,
 ) (interface{}, error) {
 	args := []string{
 		platformID,
 		gameID,
 		countryCode,
+		roomID,
 	}
-	res, err := s.Scriptor.ExecSha(RoomPlayerID, keys, args)
+	res, err := s.Scriptor.ExecSha(RoomIDPlayerID, keys, args)
 	if err != nil {
-		logtool.LogError("RoomPlayer ExecSha Error", err)
+		logtool.LogError("RoomIDPlayerID ExecSha Error", err)
 		return "", errors.WithStack(err)
 	}
 
 	return res, nil
 }
 
-// RoomPlayer - 查詢玩家
+// RoomIDPlayer - 查詢特定房間玩家
 const (
-	RoomPlayerID       = "RoomPlayer"
-	RoomPlayerTemplate = `
+	RoomIDPlayerID       = "RoomIDPlayer"
+	RoomIDPlayerTemplate = `
 	local DBKey                                         = tonumber(KEYS[1])
 	local ProjectKey                                    = KEYS[2]
 	local TagKey                                        = KEYS[3]
 	local platformId = ARGV[1]
 	local gameId = ARGV[2]
 	local countrycode = ARGV[3]
+	local roomId = ARGV[4]
 
-	local scope = table.concat({ProjectKey, platformId, gameId, countrycode}, "/")
+	local scope = table.concat({ProjectKey, platformId, gameId, countrycode,"room",roomId}, "/")
 
 	local function log(v)
 		local s = ""
@@ -74,7 +77,7 @@ const (
 	end
 		
 	redis.call("SELECT", DBKey)
-	local playerlist = 	hgetall(makeKey({"playerToRoom"}))
+	local playerlist = 	hgetall(makeKey({"playerToSeat"}))
 	
 	if playerlist == false or next(playerlist) == nil then
 		return "[]"

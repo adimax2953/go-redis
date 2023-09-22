@@ -23,6 +23,7 @@ var LuaScripts = map[string]string{
 	RoomLeftSingleID: RoomLeftSingleTemplate,
 	RoomListID:       RoomListTemplate,
 	RoomPlayerID:     RoomPlayerTemplate,
+	RoomIDPlayerID:   RoomIDPlayerTemplate,
 	//Value
 	IncValueID:         IncValueTemplate,
 	GetValueID:         GetValueTemplate,

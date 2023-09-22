@@ -47,6 +47,42 @@ func room_list_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	logtool.LogDebug("RoomList:", res)
 }
 
+func room_id_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+
+	res, err := myscript.RoomIDPlayer(keys, "2311", "game1", "coin1", "2207190000000018")
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("RoomIDPlayer", res)
+
+}
 func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
