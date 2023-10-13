@@ -241,6 +241,68 @@ func value_del_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	logtool.LogDebug("ValueDel")
 }
 
+func value_inc_fixed_ttl_map_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6378,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "14"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+			"mainkey",
+			"100",
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+
+	type Setting struct {
+		HttpAddr    int64 `redis:"1"`
+		WsAddr      int64 `redis:"2"`
+		WsPath      int64 `redis:"3"`
+		SwaggerAddr int64 `redis:"4"`
+	}
+
+	args := Setting{
+		HttpAddr:    123,
+		WsAddr:      1,
+		WsPath:      321,
+		SwaggerAddr: 2,
+	}
+
+	res, err := myscript.IncValueBatchFixedTTL(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("IncValueBatchFixedTTL", *res)
+
+	argsmap := make(map[string]interface{})
+	argsmap["5"] = 1232133
+	argsmap["6"] = 333
+	argsmap["7"] = 222
+
+	res, err = myscript.IncValueBatchFixedTTL(keys, argsmap)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("IncValueBatchFixedTTL", *res)
+}
 func value_inc_map_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
