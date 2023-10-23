@@ -47,11 +47,10 @@ const (
 	--[[
 		Author      :   Adimax.Tsai
 		Description :   ScanKey
-		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} 
+		EVALSHA  <script_sha1> 0 {DBKey} {Count} 
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
 		local Count                                    		= KEYS[2]
-		local Type                                    		= KEYS[3]
 		local sender                                        = "ScanKey.lua"
 
 		local values = {}	

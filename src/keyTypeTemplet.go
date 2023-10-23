@@ -29,14 +29,15 @@ const (
 	--[[
 		Author      :   Adimax.Tsai
 		Description :   KeyType
-		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} 
+		EVALSHA  <script_sha1> 0 {DBKey} {Key} 
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
+		local Key                                         	= KEYS[2]
 		local sender                                        = "KeyType.lua"
 
 		local values = {}			
 		redis.call('select',DBKey)
-		local types = redis.call('type', 'key')
+		local types = redis.call('type', Key)
 		table.insert(values, types)
 		return values
     `
