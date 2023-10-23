@@ -39,6 +39,6 @@ const (
 		
 		redis.call('select',DBKey)	
 		local result = redis.call('set',Key ,Value)
-		return result
+		return {result}
     `
 )

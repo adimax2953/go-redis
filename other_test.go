@@ -127,9 +127,9 @@ func Flush_DB_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func Scan_DB_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "103.103.81.12",
+		Host:     "r-gs5qc5rlcax1uyjynvpd.redis.singapore.rds.aliyuncs.com",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "qxp_PEZ4cqw8ehr3wfa",
 		DB:       15,
 		PoolSize: 3,
 	}

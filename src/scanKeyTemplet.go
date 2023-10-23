@@ -1,8 +1,6 @@
 package src
 
 import (
-	"time"
-
 	goredis "github.com/adimax2953/go-redis"
 	logtool "github.com/adimax2953/log-tool"
 )
@@ -14,8 +12,6 @@ func (s *MyScriptor) ScanKey(keys, args []string) (*[]RedisResult, error) {
 		logtool.LogError("ScanKey ExecSha Error", err)
 		return nil, err
 	}
-	time1 := time.Now()
-	// 计算时间差
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	count := len(res.([]interface{}))
 	result := make([]RedisResult, count)
@@ -27,15 +23,6 @@ func (s *MyScriptor) ScanKey(keys, args []string) (*[]RedisResult, error) {
 			logtool.LogError("ScanKey Value Error", err)
 		}
 	}
-	time2 := time.Now()
-
-	duration := time2.Sub(time1)
-	logtool.LogInfo("ScanKey Count", count)
-
-	hours := int(duration.Hours())
-	minutes := int(duration.Minutes()) % 60
-	seconds := int(duration.Seconds()) % 60
-	logtool.LogInfof("time", "小時：%d, 分鐘：%d, 秒：%d\n", hours, minutes, seconds)
 
 	return &result, nil
 }

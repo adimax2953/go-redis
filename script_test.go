@@ -95,8 +95,8 @@ func Test_goredis_Script(t *testing.T) {
 
 	//Exist_Key_TestCase(scriptor, assert)
 	//Flush_DB_TestCase(scriptor, assert)
-	//Scan_DB_TestCase(scriptor, assert)
-	Key_Type_TestCase(scriptor, assert)
+	Scan_DB_TestCase(scriptor, assert)
+	//Key_Type_TestCase(scriptor, assert)
 }
 
 func script_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
