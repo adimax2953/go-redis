@@ -10,6 +10,7 @@ type RedisResult struct {
 	EndTime    int64
 	ValueInt64 int64
 	Key        string
+	Type       string
 }
 
 type MyScriptor struct {
@@ -95,4 +96,6 @@ var LuaScripts = map[string]string{
 	IncBase62ID: IncBase62Template,
 	ExistsKEYID: ExistsKEYTemplate,
 	FlushDBID:   FlushDBTemplate,
+	ScanKeyID:   ScanKeyTemplate,
+	KeyTypeID:   KeyTypeTemplate,
 }
