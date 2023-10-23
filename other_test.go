@@ -165,7 +165,7 @@ func Key_Type_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	var (
 		scriptDefinition = "Bft|0.0.1"
 		dbKey            = "0"
-		Count            = "0"
+		Count            = "asdasd"
 	)
 	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
 	if err != nil {

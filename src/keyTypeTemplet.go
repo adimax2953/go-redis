@@ -7,7 +7,7 @@ import (
 
 // KeyType function - keys, args[] string - return string , error
 func (s *MyScriptor) KeyType(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(ScanKeyID, keys, args)
+	res, err := s.Scriptor.ExecSha(KeyTypeID, keys, args)
 	if err != nil {
 		logtool.LogError("KeyType ExecSha Error", err)
 		return "", err

@@ -12,6 +12,28 @@ type RedisResult struct {
 	Key        string
 	Type       string
 }
+type RedisType int
+
+const (
+	NONE   RedisType = iota //KEY不存在
+	STRING                  //字符串
+	LIST                    //列表
+	SET                     //集合
+	ZSET                    //有序集合
+	HASH                    //哈希表
+)
+
+// Redis Type 種類
+func (state RedisType) String() string {
+	return [...]string{
+		"none",   //KEY不存在
+		"string", //字符串
+		"list",   //列表
+		"set",    //集合
+		"zset",   //有序集合
+		"hash",   //哈希表
+	}[state]
+}
 
 type MyScriptor struct {
 	Scriptor *goredis.Scriptor
