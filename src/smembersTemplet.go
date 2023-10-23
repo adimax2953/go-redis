@@ -7,7 +7,7 @@ import (
 
 // SMembers function - keys, args[] string - return *[]RedisResult , error
 func (s *MyScriptor) SMembers(keys, args []string) (*[]RedisResult, error) {
-	res, err := s.Scriptor.ExecSha(ScanKeyID, keys, args)
+	res, err := s.Scriptor.ExecSha(SMembersID, keys, args)
 	if err != nil {
 		logtool.LogError("SMembers ExecSha Error", err)
 		return nil, err

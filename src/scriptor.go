@@ -120,4 +120,8 @@ var LuaScripts = map[string]string{
 	FlushDBID:   FlushDBTemplate,
 	ScanKeyID:   ScanKeyTemplate,
 	KeyTypeID:   KeyTypeTemplate,
+	SetID:       SetTemplate,
+	GetID:       GetTemplate,
+	SAddID:      SAddTemplate,
+	SMembersID:  SMembersTemplate,
 }
