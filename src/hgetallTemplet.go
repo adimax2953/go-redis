@@ -22,7 +22,7 @@ func (s *MyScriptor) HGetAll(keys, args []string) (*[]RedisResult, error) {
 	if s.Scriptor == nil {
 		logtool.LogError("HGetAll empty scriptor")
 	}
-	res, err := s.Scriptor.ExecSha(GetHashAllID, keys, args)
+	res, err := s.Scriptor.ExecSha(HGetAllID, keys, args)
 	if err != nil {
 		logtool.LogError("HGetAll ExecSha Error", err)
 		return nil, err
