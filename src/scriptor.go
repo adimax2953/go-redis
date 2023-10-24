@@ -124,4 +124,6 @@ var LuaScripts = map[string]string{
 	GetID:       GetTemplate,
 	SAddID:      SAddTemplate,
 	SMembersID:  SMembersTemplate,
+	HGetAllID:   HGetAllTemplate,
+	HSetID:      HSetTemplate,
 }
