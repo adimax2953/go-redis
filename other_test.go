@@ -181,3 +181,52 @@ func Key_Type_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	}
 	logtool.LogDebug("KeyType", res)
 }
+func Hset_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "r-gs5qc5rlcax1uyjynvpd.redis.singapore.rds.aliyuncs.com",
+		Port:     6379,
+		Password: "qxp_PEZ4cqw8ehr3wfa",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "0"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+
+	opt2 := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "Taijc@888",
+		DB:       15,
+		PoolSize: 3,
+	}
+	scriptor2, err := goredis.NewDB(opt2, opt2.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	myscript2 := &Src.MyScriptor{
+		Scriptor: scriptor2,
+	}
+
+	res, err := myscript.HGetAll([]string{dbKey, "auto-ssl"}, []string{})
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	argsmap := make(map[string]interface{})
+	for _, v := range *res {
+		logtool.LogDebug(v.Key, v.Value)
+
+		argsmap[v.Key] = v.Value
+	}
+
+	myscript2.HSet([]string{dbKey, "auto-ssl"}, argsmap)
+}
