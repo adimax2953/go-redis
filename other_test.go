@@ -181,6 +181,7 @@ func Key_Type_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	}
 	logtool.LogDebug("KeyType", res)
 }
+
 func Hset_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -229,4 +230,33 @@ func Hset_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	}
 
 	myscript2.HSet([]string{dbKey, "auto-ssl"}, argsmap)
+}
+func Scan_DB_Match_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "Taijc@888",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "6"
+		Key              = "DSG:bftest:CNY:302:1:55"
+		Count            = "10000"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	res, err := myscript.ScanMatchKey([]string{dbKey, Key, Count}, []string{})
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("ScanMatchKey", *res)
 }
