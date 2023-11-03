@@ -45,7 +45,12 @@ const (
 		
 			redis.call("select",DBKey)
 			local r1= ""
-			redis.call('expire',MAIN_KEY,v1)
+			if v1=="-1" then
+				redis.call('persist',MAIN_KEY)
+			else
+				redis.call('expire',MAIN_KEY,v1)
+			end
+
 			r1 = redis.call('ttl',MAIN_KEY)
 			return { r1 }
 		end
