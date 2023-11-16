@@ -300,3 +300,32 @@ func Scan_DB_Match_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 	}
 	logtool.LogDebug("ScanMatchKey", *res)
 }
+
+func Scan_DB_Matchs_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "Taijc@888",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		Key              = "1_1_15"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	res, err := myscript.ScanMatchKeys([]string{dbKey, Key}, []string{})
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("ScanMatchKeys", *res)
+}
