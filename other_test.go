@@ -1,6 +1,8 @@
 package goredis_test
 
 import (
+	"fmt"
+
 	"github.com/stretchr/testify/assert"
 
 	goredis "github.com/adimax2953/go-redis"
@@ -13,7 +15,7 @@ func Inc_Base62_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "",
+		Password: "Taijc@888",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -28,18 +30,20 @@ func Inc_Base62_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 			tagKey,
 		}
 	)
+
 	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
 
+	tid := fmt.Sprintf("%s-%s-%08d", "231122", "40A", 0)
 	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
 	args := []string{
-		"aaa",
-		"test",
-		"zzzzz",
+		"TRA",
+		"TID",
+		tid,
 	}
 	res, err := myscript.IncBase62(keys, args)
 	if err != nil {

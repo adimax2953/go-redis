@@ -89,14 +89,23 @@ const (
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 			redis.call("select",DBKey)
 			local result = ""
-
 			local s = ""
 			local Tmp = redis.call('hget',MAIN_KEY , k2)
+
 			if Tmp~=nil and Tmp~="" and Tmp~=false then
-				s = Tmp
+			
+				local slicedTmp = string.sub(Tmp, 1, 6)
+				local slicedv1 = string.sub(v1, 1, 6)
+
+				if slicedv1==slicedTmp then				
+					s = Tmp
+				else
+					s = v1
+				end
 			else
 				s = v1
 			end
+			
 
 			result = Base62Inc(s)
 
