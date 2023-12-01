@@ -7,7 +7,7 @@ import (
 
 // SetTTL function - keys, args[] string - return string , error
 func (s *MyScriptor) SetTTL(keys, args []string) (string, error) {
-	res, err := s.Scriptor.ExecSha(ExpireKEYID, keys, args)
+	res, err := s.Scriptor.ExecSha(SetTTLID, keys, args)
 	if err != nil {
 		logtool.LogError("SetTTL ExecSha Error", err)
 		return "", err
