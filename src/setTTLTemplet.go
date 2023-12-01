@@ -41,8 +41,8 @@ const (
 		local MAIN_KEY = k1
 	
 		redis.call("select",DBKey)
-		local r1= ""
-		if v1=="-1" then
+		local r1 = ""
+		if v1 == "-1" then
 			redis.call('persist',MAIN_KEY)
 		else
 			redis.call('expire',MAIN_KEY,v1)
