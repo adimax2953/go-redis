@@ -129,4 +129,5 @@ var LuaScripts = map[string]string{
 	ScanMatchKeyID:  ScanMatchKeyTemplate,
 	ScanMatchKeysID: ScanMatchKeysTemplate,
 	SetTTLID:        SetTTLTemplate,
+	GetSystemRTPID:  GetSystemRTPTemplate,
 }

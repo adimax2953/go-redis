@@ -333,3 +333,32 @@ func Scan_DB_Matchs_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertio
 	}
 	logtool.LogDebug("ScanMatchKeys", *res)
 }
+
+func Get_System_RTP_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "Taijc@888",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		//Key              = "1_1_15_401_2000"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	res, err := myscript.GetSystemRTP([]string{dbKey}, []string{"1_1_15_401_2000:Lifetime:System", "1_1_15_401_2000:202312_1:System", "1_1_15_401_2000:20231214_1:System"})
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("GetSystemRTP", res)
+}

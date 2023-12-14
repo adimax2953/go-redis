@@ -15,6 +15,7 @@ func (s *MyScriptor) IncValueBatchFixedTTL(keys []string, args ...interface{}) (
 		logtool.LogError("IncValueBatchFixedTTL ExecSha Error", err)
 		return nil, err
 	}
+
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	count := len(res.([]interface{})) / 2
 	result := make([]RedisResult, count)
