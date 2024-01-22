@@ -247,7 +247,7 @@ func value_inc_fixed_ttl_map_TestCase(scriptor *goredis.Scriptor, assert *assert
 		Host:     "103.103.81.12",
 		Port:     6378,
 		Password: "",
-		DB:       1,
+		DB:       13,
 		PoolSize: 3,
 	}
 	var (
@@ -261,6 +261,7 @@ func value_inc_fixed_ttl_map_TestCase(scriptor *goredis.Scriptor, assert *assert
 			tagKey,
 			"mainkey",
 			"100",
+			"1",
 		}
 	)
 	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)

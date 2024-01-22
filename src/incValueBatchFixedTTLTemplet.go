@@ -46,7 +46,8 @@ const (
 		local ProjectKey                                    = KEYS[2]
 		local TagKey                                        = KEYS[3]
 		local k1                                            = KEYS[4]
-		local k2                                            = tonumber(KEYS[5])
+		local ttl                                           = tonumber(KEYS[5])
+		local overwrite                                     = tonumber(KEYS[6])
 		local v1                                            = ARGV
 		local sender                                        = "IncValueBatch.lua"
 		
@@ -74,8 +75,8 @@ const (
 			end
 
 			local r = redis.call('ttl',MAIN_KEY)
-			if r == -1 and k2 then
-				redis.call('expire',MAIN_KEY,k2)
+			if (r == -1 and ttl) or (overwrite == 1) then
+				redis.call('expire',MAIN_KEY,ttl)
 			end
 
 			return r1
