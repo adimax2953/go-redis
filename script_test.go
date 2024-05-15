@@ -81,6 +81,8 @@ func Test_goredis_Script(t *testing.T) {
 	// zset_get_all_TestCase(scriptor, assert)
 	// zset_del_TestCase(scriptor, assert)
 	// zset_del_all_TestCase(scriptor, assert)
+	zadd_TestCase(scriptor, assert)
+	Zrange_TestCase(scriptor, assert)
 
 	//value test
 	// value_inc_TestCase(scriptor, assert)
@@ -92,8 +94,8 @@ func Test_goredis_Script(t *testing.T) {
 	//value_inc_map_TestCase(scriptor, assert)
 	//value_dec_map_TestCase(scriptor, assert)
 	//value_inc_fixed_ttl_map_TestCase(scriptor, assert)
-	value_inc_before_TestCase(scriptor, assert)
-	value_dec_before_TestCase(scriptor, assert)
+	//value_inc_before_TestCase(scriptor, assert)
+	//value_dec_before_TestCase(scriptor, assert)
 
 	//Expire_Key_TestCase(scriptor, assert)
 	//Exist_Key_TestCase(scriptor, assert)

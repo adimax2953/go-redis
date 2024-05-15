@@ -44,7 +44,7 @@ func (s *MyScriptor) HGetAll(keys, args []string) (*[]RedisResult, error) {
 	return &result, nil
 }
 
-// HGetAll - 減少數值
+// HGetAll - 取得該Hash底下所有的kv
 const (
 	HGetAllID       = "HGetAll"
 	HGetAllTemplate = `

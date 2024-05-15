@@ -15,7 +15,7 @@ func Inc_Base62_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -99,7 +99,7 @@ func Expire_Key_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -171,9 +171,9 @@ func Flush_DB_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 func Scan_DB_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "r-gs5qc5rlcax1uyjynvpd.redis.singapore.rds.aliyuncs.com",
+		Host:     "",
 		Port:     6379,
-		Password: "qxp_PEZ4cqw8ehr3wfa",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -202,7 +202,7 @@ func Key_Type_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -226,12 +226,67 @@ func Key_Type_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	logtool.LogDebug("KeyType", res)
 }
 
+func zadd_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "6"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	a, b, _ := myscript.ZAdd([]string{dbKey, "myzset"}, []string{"acac", "1"})
+	logtool.LogDebug("Zadd", a, b)
+
+	c, d, _ := myscript.ZAdd([]string{dbKey, "myzset"}, []string{"acdc", "1"})
+	logtool.LogDebug("Zadd", c, d)
+
+}
+func Zrange_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "6"
+		Key              = "myzset"
+	)
+	scriptor, err := goredis.NewDB(opt, opt.DB, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	res, err := myscript.ZRange([]string{dbKey, Key}, []string{})
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("Zrange", res)
+}
 func Hset_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
-		Host:     "r-gs5qc5rlcax1uyjynvpd.redis.singapore.rds.aliyuncs.com",
+		Host:     "",
 		Port:     6379,
-		Password: "qxp_PEZ4cqw8ehr3wfa",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -250,7 +305,7 @@ func Hset_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	opt2 := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -280,7 +335,7 @@ func Scan_DB_Match_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertion
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -310,7 +365,7 @@ func Scan_DB_Matchs_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertio
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
@@ -339,7 +394,7 @@ func Get_System_RTP_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertio
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       15,
 		PoolSize: 3,
 	}
