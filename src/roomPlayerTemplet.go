@@ -80,6 +80,6 @@ const (
 		return "[]"
 	end
 		
-	return cjson.encode(playerlist)	
+	return cjson.encode(playerlist)
     `
 )

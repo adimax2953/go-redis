@@ -49,6 +49,7 @@ const (
 
 		if DBKey and k1 and v1 then
 		
+			local MAIN_KEY = k1
 			redis.call("select",DBKey)
 			redis.call('hset', k1 , unpack(v1))
 

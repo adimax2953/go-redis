@@ -5,31 +5,35 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// DecValue function - keys, args[] string - return int64 , error
-func (s *MyScriptor) DecValue(keys, args []string) (int64, error) {
-	res, err := s.Scriptor.ExecSha(DecValueID, keys, args)
+// DecValueBefore function - keys, args[] string - return int64 , error
+func (s *MyScriptor) DecValueBefore(keys, args []string) (int64, int64, error) {
+	res, err := s.Scriptor.ExecSha(DecValueBeforeID, keys, args)
 	if err != nil {
-		logtool.LogError("DecValue ExecSha Error", err)
-		return 0, err
+		logtool.LogError("DecValueBefore ExecSha Error", err)
+		return 0, 0, err
 	}
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.ValueInt64, err = reader.ReadInt64(0)
 	if err != nil {
-		logtool.LogError("DecValue Value Error", err)
-		return 0, err
+		logtool.LogError("IncValueBefore ValueInt64 Error", err)
+		return 0, 0, err
 	}
-
-	return result.ValueInt64, nil
+	result.Value2Int64, err = reader.ReadInt64(0)
+	if err != nil {
+		logtool.LogError("IncValueBefore Value2Int64 Error", err)
+		return 0, 0, err
+	}
+	return result.ValueInt64, result.Value2Int64, nil
 }
 
-// DecValue - 減少數值
+// DecValueBefore - 減少數字且查詢原始數字
 const (
-	DecValueID       = "DecValue"
-	DecValueTemplate = `
+	DecValueBeforeID       = "DecValueBefore"
+	DecValueBeforeTemplate = `
 	--[[
 		Author      :   Adimax.Tsai
-		Description :   DecValue
+		Description :   DecValueBefore
 		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} {k2} {v1}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
@@ -38,7 +42,7 @@ const (
 		local k1                                            = ARGV[1]
 		local k2                                            = ARGV[2]
 		local v1                                            = tonumber(ARGV[3])
-		local sender                                        = "DecValue.lua"
+		local sender                                        = "DecValueBefore.lua"
 		---@return number 
 		local function getTime()
 			return redis.call("TIME")[1]
@@ -49,15 +53,15 @@ const (
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
-			local tmp = redis.call('hget',MAIN_KEY,k2)
-			local v2 =tonumber(tmp)
-			local result = {-1}
+			local afther ={}
+			local before ={}
+			before = redis.call('hget',MAIN_KEY,k2)
+			local v2 =tonumber(before)
 			if v1 <= v2 then
-				result =redis.call('hincrby',MAIN_KEY,k2,-v1)				
+			afther = redis.call('hincrby',MAIN_KEY,k2,-v1)				
 				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			end
-
-			return {result}
+			return {before,afther}
 		end
     `
 )

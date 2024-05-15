@@ -55,11 +55,8 @@ const (
 				v2=0
 			end
 			local result = {-1}
-			redis.call('hset',MAIN_KEY,k2,v2 - v1)
-			result = redis.call('hget',MAIN_KEY,k2)
-			redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
-			
-
+				result = redis.call('hincrby',MAIN_KEY,k2,-v1)
+				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())	
 			return {result}
 		end
     `

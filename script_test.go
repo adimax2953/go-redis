@@ -91,7 +91,9 @@ func Test_goredis_Script(t *testing.T) {
 	//value_dec_nag_TestCase(scriptor, assert)
 	//value_inc_map_TestCase(scriptor, assert)
 	//value_dec_map_TestCase(scriptor, assert)
-	value_inc_fixed_ttl_map_TestCase(scriptor, assert)
+	//value_inc_fixed_ttl_map_TestCase(scriptor, assert)
+	value_inc_before_TestCase(scriptor, assert)
+	value_dec_before_TestCase(scriptor, assert)
 
 	//Expire_Key_TestCase(scriptor, assert)
 	//Exist_Key_TestCase(scriptor, assert)

@@ -54,7 +54,7 @@ const (
 		EVALSHA  <script_sha1> 0 {DBKey} {k1}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
-		local k1                                            = KEYS[1]
+		local k1                                            = KEYS[2]
 		local sender                                        = "HGetAll.lua"
 		
 		if DBKey and k1 then

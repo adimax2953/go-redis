@@ -5,31 +5,35 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
-// IncValue function - keys, args[] string - return int64 , error
-func (s *MyScriptor) IncValue(keys, args []string) (int64, error) {
-	res, err := s.Scriptor.ExecSha(IncValueID, keys, args)
+// IncValueBefore function - keys, args[] string - return int64 , error
+func (s *MyScriptor) IncValueBefore(keys, args []string) (int64, int64, error) {
+	res, err := s.Scriptor.ExecSha(IncValueBeforeID, keys, args)
 	if err != nil {
-		logtool.LogError("IncValue ExecSha Error", err)
-		return 0, err
+		logtool.LogError("IncValueBefore ExecSha Error", err)
+		return 0, 0, err
 	}
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.ValueInt64, err = reader.ReadInt64(0)
 	if err != nil {
-		logtool.LogError("IncValue Value Error", err)
-		return 0, err
+		logtool.LogError("IncValueBefore ValueInt64 Error", err)
+		return 0, 0, err
 	}
-
-	return result.ValueInt64, nil
+	result.Value2Int64, err = reader.ReadInt64(0)
+	if err != nil {
+		logtool.LogError("IncValueBefore Value2Int64 Error", err)
+		return 0, 0, err
+	}
+	return result.ValueInt64, result.Value2Int64, nil
 }
 
-// IncValue - 增加數字
+// IncValueBefore - 增加數字且查詢原始數字
 const (
-	IncValueID       = "IncValue"
-	IncValueTemplate = `
+	IncValueBeforeID       = "IncValueBefore"
+	IncValueBeforeTemplate = `
 	--[[
 		Author      :   Adimax.Tsai
-		Description :   IncValue
+		Description :   IncValueBefore
 		EVALSHA  <script_sha1> 0 {DBKey} {ProjectKey} {TagKey} {k1} {k2} {v1}
 		--]]
 		local DBKey                                         = tonumber(KEYS[1])
@@ -38,7 +42,7 @@ const (
 		local k1                                            = ARGV[1]
 		local k2                                            = ARGV[2]
 		local v1                                            = tonumber(ARGV[3])
-		local sender                                        = "IncValue.lua"
+		local sender                                        = "IncValueBefore.lua"
 		if not DBKey or DBKey=="" then
 			return  {err="invalid argument 'DBKey'", sender=sender}
 		end
@@ -67,10 +71,13 @@ const (
 
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 			redis.call("select",DBKey)
-			local result ={}			
-			result = redis.call('hincrby',MAIN_KEY,k2,v1)
-			redis.call('hset',MAIN_KEY, 'lastUpdateTime', getTime())
-			return {result}
+			local afther ={}
+			local before ={}
+				before = redis.call('hget',MAIN_KEY,k2)
+				afther = redis.call('hincrby',MAIN_KEY,k2,v1)
+				redis.call('hset',MAIN_KEY, 'lastUpdateTime', getTime())
+
+			return {before,afther}
 		end
     `
 )

@@ -8,6 +8,86 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
+func value_inc_before_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"valuetest",
+		"Value",
+		"50",
+	}
+	res, res2, err := myscript.IncValueBefore(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("ValueIncBefore", res, res2)
+}
+
+func value_dec_before_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"valuetest",
+		"Value",
+		"100",
+	}
+	res, res2, err := myscript.DecValueBefore(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("DecValueBefore", res, res2)
+
+}
 func value_inc_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -245,7 +325,7 @@ func value_inc_fixed_ttl_map_TestCase(scriptor *goredis.Scriptor, assert *assert
 
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
-		Port:     6378,
+		Port:     6379,
 		Password: "",
 		DB:       13,
 		PoolSize: 3,
