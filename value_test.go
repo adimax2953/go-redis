@@ -13,7 +13,7 @@ func value_inc_before_TestCase(scriptor *goredis.Scriptor, assert *assert.Assert
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "",
+		Password: "Taijc@888",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -53,7 +53,7 @@ func value_dec_before_TestCase(scriptor *goredis.Scriptor, assert *assert.Assert
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "",
+		Password: "Taijc@888",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -79,7 +79,7 @@ func value_dec_before_TestCase(scriptor *goredis.Scriptor, assert *assert.Assert
 	args := []string{
 		"valuetest",
 		"Value",
-		"100",
+		"1000",
 	}
 	res, res2, err := myscript.DecValueBefore(keys, args)
 	if err != nil {

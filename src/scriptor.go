@@ -119,6 +119,7 @@ var LuaScripts = map[string]string{
 	TTLKeyID:        TTLKeyTemplate,
 	ExpireKEYID:     ExpireKEYTemplate,
 	IncBase62ID:     IncBase62Template,
+	IncBase10ID:     IncBase10Template,
 	ExistsKEYID:     ExistsKEYTemplate,
 	FlushDBID:       FlushDBTemplate,
 	ScanKeyID:       ScanKeyTemplate,

@@ -26,6 +26,7 @@ func Test_goredis_Script(t *testing.T) {
 	assert.Nil(err)
 	//script_TestCase(scriptor, assert)
 	//Inc_Base62_TestCase(scriptor, assert)
+	Inc_Base10_TestCase(scriptor, assert)
 
 	// room test
 	//room_join_TestCase(scriptor, assert)
@@ -81,8 +82,8 @@ func Test_goredis_Script(t *testing.T) {
 	// zset_get_all_TestCase(scriptor, assert)
 	// zset_del_TestCase(scriptor, assert)
 	// zset_del_all_TestCase(scriptor, assert)
-	zadd_TestCase(scriptor, assert)
-	Zrange_TestCase(scriptor, assert)
+	//zadd_TestCase(scriptor, assert)
+	//Zrange_TestCase(scriptor, assert)
 
 	//value test
 	// value_inc_TestCase(scriptor, assert)
