@@ -8,6 +8,102 @@ import (
 	logtool "github.com/adimax2953/log-tool"
 )
 
+func list_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "13"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"listtest",
+		"1",
+	}
+	res, err := myscript.GetList(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("GetList", res)
+}
+func list_new_batch_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "13"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+			"listtest",
+			"L",
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+	}
+	res, err := myscript.NewListBatch(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("NewList", res)
+
+	args = []string{
+		"10",
+		"11",
+		"12",
+	}
+	res, err = myscript.NewListBatch(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("NewList2", res)
+}
 func list_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -99,45 +195,6 @@ func list_update_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 	logtool.LogDebug("UpdateList", res)
 }
 
-func list_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
-
-	opt := &goredis.Option{
-		Host:     "103.103.81.12",
-		Port:     6379,
-		Password: "",
-		DB:       1,
-		PoolSize: 3,
-	}
-	var (
-		scriptDefinition = "Bft|0.0.1"
-		dbKey            = "2"
-		projectKey       = "minigame1"
-		tagKey           = "game"
-		keys             = []string{
-			dbKey,
-			projectKey,
-			tagKey,
-		}
-	)
-	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-
-	myscript := &Src.MyScriptor{
-		Scriptor: scriptor,
-	}
-	args := []string{
-		"listtest",
-		"1",
-	}
-	res, err := myscript.GetList(keys, args)
-	if err != nil {
-		logtool.LogFatal(err.Error())
-	}
-	logtool.LogDebug("GetList", res)
-}
-
 func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -149,7 +206,7 @@ func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 	}
 	var (
 		scriptDefinition = "Bft|0.0.1"
-		dbKey            = "2"
+		dbKey            = "13"
 		projectKey       = "minigame1"
 		tagKey           = "game"
 		keys             = []string{
@@ -175,7 +232,7 @@ func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("GetListPopR", res)
+	logtool.LogDebug("GetListPopR", res.Value, res.CountDown)
 	args = []string{
 		"listtest",
 		"L",
@@ -185,7 +242,7 @@ func list_get_pop_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions
 	if err != nil {
 		logtool.LogFatal(err.Error())
 	}
-	logtool.LogDebug("GetListPopL", res)
+	logtool.LogDebug("GetListPopL", res.Value, res.CountDown)
 }
 func list_get_length_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
@@ -198,7 +255,7 @@ func list_get_length_TestCase(scriptor *goredis.Scriptor, assert *assert.Asserti
 	}
 	var (
 		scriptDefinition = "Bft|0.0.1"
-		dbKey            = "2"
+		dbKey            = "13"
 		projectKey       = "minigame1"
 		tagKey           = "game"
 		keys             = []string{

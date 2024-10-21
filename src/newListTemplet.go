@@ -23,7 +23,7 @@ func (s *MyScriptor) NewList(keys, args []string) (string, error) {
 	return result.Value, nil
 }
 
-// NewList - 減少數值
+// NewList - 新增List
 const (
 	NewListID       = "NewList"
 	NewListTemplate = `

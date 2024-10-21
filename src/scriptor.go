@@ -12,6 +12,7 @@ type RedisResult struct {
 	Value2Int64 int64
 	Key         string
 	Type        string
+	Count       int64
 }
 type RedisType int
 
@@ -93,6 +94,7 @@ var LuaScripts = map[string]string{
 	UpdateListID:    UpdateListTemplate,
 	DelListID:       DelListTemplate,
 	DelListAllID:    DelListAllTemplate,
+	NewListBatchID:  NewListBatchTemplate,
 	//Set
 	NewSetID:       NewSetTemplate,
 	GetSetID:       GetSetTemplate,

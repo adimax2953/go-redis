@@ -16,11 +16,15 @@ func (s *MyScriptor) GetListPop(keys, args []string) (*RedisResult, error) {
 	result := &RedisResult{}
 	reader := goredis.NewRedisArrayReplyReader(res.([]interface{}))
 	result.Value = reader.ReadString()
-
+	result.Count, err = reader.ReadInt64(-1)
+	if err != nil {
+		logtool.LogError("GetListPop ExecSha Count Error", err)
+		return nil, err
+	}
 	return result, nil
 }
 
-// GetListPop - 減少數值
+// GetListPop - 取出List的資料
 const (
 	GetListPopID       = "GetListPop"
 	GetListPopTemplate = `
@@ -47,8 +51,9 @@ const (
 				m = "rpop"
 			end
 			local r1 = redis.call(m,MAIN_KEY)
-		
-			return { r1 }
+			local count = redis.call('llen',MAIN_KEY)
+
+			return { r1 ,count}
 		end
     `
 )
