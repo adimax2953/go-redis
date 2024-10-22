@@ -41,7 +41,7 @@ const (
 		local k1                                            = ARGV[1]
 		local sender                                        = "GetListAll.lua"
 		
-		if DBKey and ProjectKey and TagKey and k1 then
+		if DBKey and ProjectKey and TagKey then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)

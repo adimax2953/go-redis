@@ -40,7 +40,7 @@ const (
 		local model                                         = ARGV[2]
 		local sender                                        = "GetListPop.lua"
 		
-		if DBKey and ProjectKey and TagKey and k1 and model then
+		if DBKey and ProjectKey and TagKey and model then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)

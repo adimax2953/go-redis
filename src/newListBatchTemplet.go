@@ -44,7 +44,7 @@ const (
 		local v1                                            = ARGV
 		local sender                                        = "NewListBatch.lua"
 		
-		if DBKey and ProjectKey and TagKey and k1 and model and v1 then
+		if DBKey and ProjectKey and TagKey and model and v1 then
 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
 		
 			redis.call("select",DBKey)
