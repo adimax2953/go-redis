@@ -46,6 +46,7 @@ func list_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	}
 	logtool.LogDebug("GetList", res)
 }
+
 func list_new_batch_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -104,6 +105,63 @@ func list_new_batch_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertio
 	}
 	logtool.LogDebug("NewList2", res)
 }
+func list_get_pop_batch_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       15,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "BFTGaming|0.0.1"
+		dbKey            = "13"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+			"listtest",
+			"L",
+			"5",
+		}
+	)
+	scriptor, err := goredis.NewDB(opt, 15, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+	args := []string{
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+	}
+	res, err := myscript.NewListBatch(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	logtool.LogDebug("NewListBatch", res)
+	keys[4] = "L"
+	reslist, err := myscript.GetListPopBatch(keys, args)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+	for v := range reslist {
+		logtool.LogDebug("GetListPopBatch", v)
+	}
+}
+
 func list_new_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{

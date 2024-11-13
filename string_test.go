@@ -91,14 +91,14 @@ func string_get_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) 
 
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
-		Port:     6379,
+		Port:     6380,
 		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
 	var (
 		scriptDefinition = "Bft|0.0.1"
-		dbKey            = "2"
+		dbKey            = "15"
 		projectKey       = "minigame1"
 		tagKey           = "game"
 		keys             = []string{

@@ -41,7 +41,7 @@ func Test_goredis_Script(t *testing.T) {
 	//string test
 	// string_new_TestCase(scriptor, assert)
 	// string_update_TestCase(scriptor, assert)
-	// string_get_TestCase(scriptor, assert)
+	//  string_get_TestCase(scriptor, assert)
 	// string_del_TestCase(scriptor, assert)
 	// string_update_ttl_TestCase(scriptor, assert)
 
@@ -62,14 +62,15 @@ func Test_goredis_Script(t *testing.T) {
 	// list_get_TestCase(scriptor, assert)
 	// list_get_length_TestCase(scriptor, assert)
 	// list_get_all_TestCase(scriptor, assert)
-	list_get_pop_TestCase(scriptor, assert)
+	// list_get_pop_TestCase(scriptor, assert)
 	// list_del_TestCase(scriptor, assert)
 	// list_del_all_TestCase(scriptor, assert)
 	// list_new_batch_TestCase(scriptor, assert)
 	// list_get_length_TestCase(scriptor, assert)
+	list_get_pop_batch_TestCase(scriptor, assert)
 
 	//set test
-	//set_new_TestCase(scriptor, assert)
+	// set_new_TestCase(scriptor, assert)
 	// set_update_TestCase(scriptor, assert)
 	// set_get_TestCase(scriptor, assert)
 	// set_get_random_TestCase(scriptor, assert)
