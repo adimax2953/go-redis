@@ -27,10 +27,10 @@ func (s *MyScriptor) GetListPopBatch(keys, args []string) ([]RedisResult, error)
 	return result, nil
 }
 
-// GetListPopBatch - 取出List的資料
+// GetListPop - 取出List的資料
 const (
-	GetListPopBatchFromHeadID       = "GetListPopBatchFromHead"
-	GetListPopBatchFromHeadTemplate = `
+	GetListPopBatchID       = "GetListPopBatch"
+	GetListPopBatchTemplate = `
 	  --[[
 		  Author      :   Adimax.Tsai
 		  Description :   GetListPopBatch
@@ -81,9 +81,7 @@ const (
 			  return  result 
 		  end
 	  `
-  )
-
-
+)
 
 // const (
 // 	GetListPopBatchID       = "GetListPopBatch"
@@ -100,10 +98,10 @@ const (
 // 		local model                                         = KEYS[5]
 // 		local count                                         = tonumber(KEYS[6])
 // 		local sender                                        = "GetListPopBatch.lua"
-		
+
 // 		if DBKey and ProjectKey and TagKey and model and count then
 // 			local MAIN_KEY = ProjectKey..":"..TagKey..":"..k1
-		
+
 // 			redis.call("select",DBKey)
 
 // 			local length = redis.call("LLEN", MAIN_KEY)
@@ -115,7 +113,7 @@ const (
 // 			local start = length - count
 // 			local send = length
 
-// 			if model == "L" then 
+// 			if model == "L" then
 // 				start = 0
 // 				send = count -1
 // 			end
@@ -123,7 +121,7 @@ const (
 // 			local result = redis.call("LRANGE", MAIN_KEY, start, send)
 //       		redis.call("LTRIM", MAIN_KEY, start , send)
 
-// 			return  result 
+// 			return  result
 // 		end
 //     `
 // )
