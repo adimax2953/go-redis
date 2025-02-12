@@ -57,7 +57,7 @@ const (
 			local before ={}
 			before = redis.call('hget',MAIN_KEY,k2)
 			local v2 =tonumber(before)
-			if v2 - v1 > 0 then
+			if v2 - v1 >= 0 then
 				afther = redis.call('hincrby',MAIN_KEY,k2,-v1)				
 				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			else
