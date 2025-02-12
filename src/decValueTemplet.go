@@ -53,7 +53,7 @@ const (
 			local v2 =tonumber(tmp)
 			local result = {-1}
 			
-			if v2- v1 >0 then
+			if v2-v1 >0 then
 				result =redis.call('hincrby',MAIN_KEY,k2,-v1)				
 				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			end
