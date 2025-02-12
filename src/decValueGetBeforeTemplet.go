@@ -62,6 +62,7 @@ const (
 				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			else
     			afther = -1
+			end	
 			return {before,afther}
 		end
     `
