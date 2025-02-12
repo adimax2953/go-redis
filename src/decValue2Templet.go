@@ -6,7 +6,7 @@ import (
 )
 
 // DecValue function - keys, args[] string - return int64 , error
-func (s *MyScriptor) DecValue(keys, args []string) (int64, error) {
+func (s *MyScriptor) DecValue2(keys, args []string) (int64, error) {
 	res, err := s.Scriptor.ExecSha(DecValueID, keys, args)
 	if err != nil {
 		logtool.LogError("DecValue ExecSha Error", err)
@@ -23,10 +23,10 @@ func (s *MyScriptor) DecValue(keys, args []string) (int64, error) {
 	return result.ValueInt64, nil
 }
 
-// DecValue - 減少數值
+// DecValue2 - 減少數值
 const (
-	DecValueID       = "DecValue"
-	DecValueTemplate = `
+	DecValue2ID       = "DecValue2"
+	DecValue2Template = `
 	--[[
 		Author      :   Adimax.Tsai
 		Description :   DecValue
@@ -52,8 +52,7 @@ const (
 			local tmp = redis.call('hget',MAIN_KEY,k2)
 			local v2 =tonumber(tmp)
 			local result = {-1}
-			
-			if v2- v1 >0 then
+			if v1 <= v2 then
 				result =redis.call('hincrby',MAIN_KEY,k2,-v1)				
 				redis.call("hset",MAIN_KEY,"lastUpdateTime",getTime())
 			end
