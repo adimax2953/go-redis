@@ -22,6 +22,7 @@ type Option struct {
 	PoolTimeout     time.Duration
 	MinIdleConns    int
 	MaxActiveConns  int
+	MaxLifetime     time.Duration
 }
 
 // Create - create a new redis descriptor
@@ -38,5 +39,6 @@ func (opt *Option) Create() *redis.Client {
 		PoolTimeout:     opt.PoolTimeout,
 		MinIdleConns:    opt.MinIdleConns,
 		MaxActiveConns:  opt.MaxActiveConns,
+		ConnMaxLifetime: opt.MaxLifetime,
 	})
 }
