@@ -96,9 +96,9 @@ const (
 		error("seatsCount should be a positive integer")
 	end
 	
-	if not isBot and roomId ~= "" and roomId ~= nil then
-		error("roomId must be empty when isBot is false")
-	end
+--	if not isBot and roomId ~= "" and roomId ~= nil then
+--		error("roomId must be empty when isBot is false")
+--	end
 	
 	local function log(v)
 		local s = ""

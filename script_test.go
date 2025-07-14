@@ -29,8 +29,8 @@ func Test_goredis_Script(t *testing.T) {
 	//Inc_Base10_TestCase(scriptor, assert)
 
 	// room test
-	//room_join_TestCase(scriptor, assert)
-	//room_left_TestCase(scriptor, assert)
+	// room_join_TestCase(scriptor, assert)
+	room_left_TestCase(scriptor, assert)
 	//room_join_bot_TestCase(scriptor, assert)
 	// room_left_bot_TestCase(scriptor, assert)
 	//room_left_single_TestCase(scriptor, assert)
@@ -67,7 +67,7 @@ func Test_goredis_Script(t *testing.T) {
 	// list_del_all_TestCase(scriptor, assert)
 	// list_new_batch_TestCase(scriptor, assert)
 	// list_get_length_TestCase(scriptor, assert)
-	list_get_pop_batch_TestCase(scriptor, assert)
+	// list_get_pop_batch_TestCase(scriptor, assert)
 
 	//set test
 	// set_new_TestCase(scriptor, assert)

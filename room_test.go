@@ -150,7 +150,7 @@ func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 		Scriptor: scriptor,
 	}
 
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 2; i++ {
 		res, err := myscript.RoomJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 1, 20, "220719", false, "")
 		if err != nil {
 			logtool.LogFatal(err.Error())
@@ -164,7 +164,7 @@ func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "",
+		Password: "Taijc@888",
 		DB:       1,
 		PoolSize: 3,
 	}
