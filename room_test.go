@@ -120,6 +120,45 @@ func room_player_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions)
 
 }
 
+func room_create_or_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
+
+	opt := &goredis.Option{
+		Host:     "103.103.81.12",
+		Port:     6379,
+		Password: "",
+		DB:       1,
+		PoolSize: 3,
+	}
+	var (
+		scriptDefinition = "Bft|0.0.1"
+		dbKey            = "2"
+		projectKey       = "minigame1"
+		tagKey           = "game"
+		keys             = []string{
+			dbKey,
+			projectKey,
+			tagKey,
+		}
+	)
+
+	scriptor, err := goredis.NewDB(opt, 1, scriptDefinition, &Src.LuaScripts)
+	if err != nil {
+		logtool.LogFatal(err.Error())
+	}
+
+	myscript := &Src.MyScriptor{
+		Scriptor: scriptor,
+	}
+
+	for i := 5; i < 10; i++ {
+		res, err := myscript.RoomCreateOrJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 20, 20, "220719", false, "2207190000000015")
+		if err != nil {
+			logtool.LogFatal(err.Error())
+		}
+		logtool.LogDebug("RoomCreateOrJoin", res)
+	}
+}
+
 func room_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 
 	opt := &goredis.Option{
@@ -164,7 +203,7 @@ func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	opt := &goredis.Option{
 		Host:     "103.103.81.12",
 		Port:     6379,
-		Password: "Taijc@888",
+		Password: "",
 		DB:       1,
 		PoolSize: 3,
 	}
@@ -187,7 +226,7 @@ func room_left_TestCase(scriptor *goredis.Scriptor, assert *assert.Assertions) {
 	myscript := &Src.MyScriptor{
 		Scriptor: scriptor,
 	}
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 10; i++ {
 		res, err := myscript.RoomLeft(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i))
 		if err != nil {
 			logtool.LogFatal(err.Error())
