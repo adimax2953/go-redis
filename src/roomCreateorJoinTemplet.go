@@ -34,7 +34,7 @@ func (s *MyScriptor) RoomCreateOrJoin(
 		isBotString,
 		roomId,
 	}
-	res, err := s.Scriptor.ExecSha(RoomJoinID, keys, args)
+	res, err := s.Scriptor.ExecSha(RoomCreateOrJoinID, keys, args)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
@@ -75,11 +75,7 @@ const (
 	if seatsCount == nil or not (seatsCount > 0) then
 		error("seatsCount should be a positive integer")
 	end
-	
---	if not isBot and roomId ~= "" and roomId ~= nil then
---		error("roomId must be empty when isBot is false")
---	end
-	
+		
 	local function log(v)
 		local s = ""
 		if type(v) == 'table' then
@@ -128,82 +124,13 @@ const (
 	local function getTime()
 		return redis.call("TIME")[1]
 	end
-	
-	---@return string
-	local function generateRoomId()
-		local key = makeKey({"roomIdCounter"})
-		local currentId = redis.call("GET", key)
-	
-		local lastDate
-		if tonumber(currentId) == nil then
-			lastDate = 0
-		else
-			lastDate = math.floor(currentId / 1e10)
-		end
-	
-		local id = 0
-		if (tonumber(date) > lastDate) then
-			id = math.floor(date * 1e10 + 1)
-		else
-			id = math.floor(currentId + 1)
-		end
-	
-		id = ("%.f"):format(id) -- tostring gives you "2.0073000000001e14"
-	
-		redis.call("SET", key,id)
-		return id
-	end
-	
+		
 	---@param roomId string
 	---@return table
 	local function getRoom(roomId)
 		return hgetall(makeKey({"room", roomId}))
 	end
-	
-	---@return table
-	local function createRoom()
-		local roomId = generateRoomId()
-		local room = {
-			roomId = roomId,
-			currentPlayerCount = 0,
-			currentBotCount = 0,
-			maxPlayerCount = maxPlayerCount
-		}
-	
-		redis.call(
-			"SADD", ProjectKey.. "/rooms",
-				table.concat({platformId, gameId, countrycode, roomId}, "/")
-		)
-		redis.call("ZADD", makeKey({"rooms"}), getTime(), roomId)
-		hset(makeKey({"room", roomId}), room)
-		redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
-	
-		local seats = {}
-		for i = 1, seatsCount do
-			table.insert(seats, tostring(i))
-		end
-	
-		redis.call(
-			"SADD", makeKey({"room", room.roomId, "seatsAvailable"}), unpack(seats)
-		)
-	
-		redis.call(
-			"PUBLISH", "RoomOpen",
-				table.concat({platformId, gameId, countrycode, roomId, "RoomOpen"}, "~")
-		)
-		return room
-	end
-	
-	---@return table
-	local function getAvailableRoom()
-		local roomIds = redis.call("ZRANGE", makeKey({"roomsAvailable"}), 0, 1)
-		if roomIds[1] == nil then
-			return nil
-		end
-		local room = hgetall(makeKey({"room", roomIds[1]}))
-		return room
-	end
-	
+			
 	---@param playerId string
 	---@param room table
 	---@return table, string
@@ -324,7 +251,7 @@ const (
 
 	if next(room) == nil then
 		room = createRoomById(roomId)
-		--log(room)
+		log(room)
 	end
 		
 	local room, seatId = addPlayerToRoom(playerId, room, playerType)

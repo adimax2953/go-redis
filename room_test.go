@@ -150,8 +150,8 @@ func room_create_or_join_TestCase(scriptor *goredis.Scriptor, assert *assert.Ass
 		Scriptor: scriptor,
 	}
 
-	for i := 5; i < 10; i++ {
-		res, err := myscript.RoomCreateOrJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 20, 20, "220719", false, "2207190000000015")
+	for i := 1; i < 3; i++ {
+		res, err := myscript.RoomCreateOrJoin(keys, "2311", "game1", "coin1", "test00"+strconv.Itoa(i), 20, 20, "220719", false, "10001")
 		if err != nil {
 			logtool.LogFatal(err.Error())
 		}
