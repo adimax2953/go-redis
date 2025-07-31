@@ -285,19 +285,14 @@ const (
 	
 	local room
 	local playerType = "P"
-	if isBot then
-		playerType="B"
-		room = getRoom(roomId)
-		if next(room) == nil then
-			return cjson.encode(
-				{error = {code = "ROOM_NOT_FOUND", message = "Room is not found."}}
-			)
-		end
-	else
+
+	room = getRoom(roomId)
+	
+	if next(room) == nil then
 		room = createRoom()
 		--log(room)
 	end
-	
+		
 	local room, seatId = addPlayerToRoom(playerId, room, playerType)
 	local players = getPlayersInRoom(room.roomId)
 	publishPlayerJoinRoom(room.roomId, playerId, seatId, players)
