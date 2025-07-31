@@ -270,6 +270,40 @@ const (
 		return list
 	end
 	
+	---@return table
+	local function createRoomById(id)
+		local roomId = id
+		local room = {
+			roomId = roomId,
+			currentPlayerCount = 0,
+			currentBotCount = 0,
+			maxPlayerCount = maxPlayerCount
+		}
+	
+		redis.call(
+			"SADD", ProjectKey.. "/rooms",
+				table.concat({platformId, gameId, countrycode, roomId}, "/")
+		)
+		redis.call("ZADD", makeKey({"rooms"}), getTime(), roomId)
+		hset(makeKey({"room", roomId}), room)
+		redis.call("ZADD", makeKey({"roomsAvailable"}), getTime(), roomId)
+	
+		local seats = {}
+		for i = 1, seatsCount do
+			table.insert(seats, tostring(i))
+		end
+	
+		redis.call(
+			"SADD", makeKey({"room", room.roomId, "seatsAvailable"}), unpack(seats)
+		)
+	
+		redis.call(
+			"PUBLISH", "RoomOpen",
+				table.concat({platformId, gameId, countrycode, roomId, "RoomOpen"}, "~")
+		)
+		return room
+	end
+
 	redis.call("select", DBKey)
 	
 	if not isBot and getRoomIdOfPlayer(playerId) then
@@ -287,9 +321,9 @@ const (
 	local playerType = "P"
 
 	room = getRoom(roomId)
-	
+
 	if next(room) == nil then
-		room = createRoom()
+		room = createRoomById(roomId)
 		--log(room)
 	end
 		
