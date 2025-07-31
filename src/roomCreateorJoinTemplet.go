@@ -251,7 +251,7 @@ const (
 
 	if next(room) == nil then
 		room = createRoomById(roomId)
-		log(room)
+		--log(room)
 	end
 		
 	local room, seatId = addPlayerToRoom(playerId, room, playerType)
